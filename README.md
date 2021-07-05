@@ -80,4 +80,7 @@ Ganhe pontos extras por:
 - Scripts de deploy;
 - Organização e mensagens dos commits.
 
+Será considerado pontos extras também
+- Criação de fluxo de criação de usuário e login 
+
 Boa sorte! =)
