@@ -3,6 +3,15 @@ const security = require("../security");
 const dateTime = require("node-datetime");
 const jwt = require('jsonwebtoken');
 
+const getSendableUser = (user) => {
+  let sendableUser = {
+    userId: user._id,
+    email: user.email,
+    username: user.username
+  };
+  return sendableUser;
+};
+
 module.exports = class UserController {
   static async auth(req, res) {
     try {
@@ -16,15 +25,16 @@ module.exports = class UserController {
         res.send();
         return;
       }
-    
+
       let userEmail = req.body.signinData.email.toLowerCase();
-    
+
       userRepository.getByEmail(userEmail).then((existingUser) => {
         if (!existingUser) {
           res.status(404);
           res.send();
           return;
         } else if (
+
           !security.matchPassword(
             req.body.signinData.key,
             existingUser.password
@@ -34,26 +44,47 @@ module.exports = class UserController {
           res.send();
           return;
         } else {
-          const token = jwt.sign({ id: existingUser._id }, process.env.SECRET, {
+          const token = jwt.sign({
+            id: existingUser._id
+          }, process.env.SECRET, {
             expiresIn: 1800 // 30min
           });
-          return res.json({ auth: true, token: token });
+          return res.send({
+            auth: true,
+            token: token,
+            user: getSendableUser(existingUser)
+          });
         }
       });
     } catch (error) {
-      res.status(500).json({error: error});
+      res.status(500).json({
+        error: error
+      });
     }
   }
 
   static async getAll(req, res) {
     try {
       const users = await userRepository.getAll();
-      if(!users){
+      if (!users) {
         res.status(404).json("There are no users yet!")
       }
       res.send(users);
     } catch (error) {
-      res.status(500).json({error: error})
+      res.status(500).json({
+        error: error
+      })
+    }
+  }
+
+  static async me(req, res) {
+    try {
+      const user = await userRepository.getById(req.userId);
+      res.send(getSendableUser(user));
+    } catch (error) {
+      res.status(500).json({
+        error: error
+      });
     }
   }
 
@@ -63,7 +94,9 @@ module.exports = class UserController {
       const user = await userRepository.getById(id);
       res.send(user);
     } catch (error) {
-      res.status(500).json({error: error});
+      res.status(500).json({
+        error: error
+      });
     }
   }
 
@@ -74,14 +107,15 @@ module.exports = class UserController {
         !req.body.signupData ||
         !req.body.signupData.email ||
         !req.body.signupData.password ||
-        !req.body.signupData.username ||
-        !req.body.signupData.phone
+        !req.body.signupData.username
       ) {
         res.status(400);
-        res.send({ message: "Preencha os campos obrigatórios" });
+        res.send({
+          message: "Preencha os campos obrigatórios"
+        });
         return;
       }
-    
+
       if (
         req.body.signupData.email
       ) {
@@ -91,24 +125,26 @@ module.exports = class UserController {
           req.body.signupData.email.indexOf(".") < 0
         ) {
           res.status(400);
-          res.send({ message: "Email inválido" });
-          return;
-        }
-      }
-    
-      if (req.body.signupData.username) {
-        if (
-          req.body.signupData.username.length < 5 ||
-          req.body.signupData.username.length > 15
-        ) {
-          res.status(400);
           res.send({
-            message: "O usuário precisa ter pelo menos 5 caracteres e no máximo 15",
+            message: "Email inválido"
           });
           return;
         }
       }
-    
+
+      if (req.body.signupData.username) {
+        if (
+          req.body.signupData.username.length < 3 ||
+          req.body.signupData.username.length > 15
+        ) {
+          res.status(400);
+          res.send({
+            message: "O usuário precisa ter pelo menos 3 caracteres e no máximo 15",
+          });
+          return;
+        }
+      }
+
       if (req.body.signupData.password) {
         if (
           req.body.signupData.password.length < 6 ||
@@ -121,24 +157,15 @@ module.exports = class UserController {
           return;
         }
       }
-    
-      if (req.body.signupData.phone) {
-        if (
-          req.body.signupData.phone.length < 1 ||
-          req.body.signupData.phone.length > 15
-        ) {
-          res.status(400);
-          res.send({ message: "Telefone inválido" });
-          return;
-        }
-      }
-    
+
       let userEmail = req.body.signupData.email.replace(/\s/g, "");
-    
+
       userRepository.getByEmail(userEmail).then((existingUser) => {
         if (existingUser) {
           res.status(409);
-          res.send({ message: "Este email já está cadastrado" });
+          res.send({
+            message: "Este email já está cadastrado"
+          });
           return;
         } else {
           let user = {
@@ -147,10 +174,9 @@ module.exports = class UserController {
               req.body.signupData.password
             ),
             username: req.body.signupData.username,
-            phone: req.body.signupData.phone,
             createdAt: dateTime.create(),
           };
-    
+
           userRepository.insert(user).then(() => {
             res.status(200);
             res.send({
@@ -160,7 +186,9 @@ module.exports = class UserController {
         }
       });
     } catch (error) {
-      res.status(500).json({error: error});
+      res.status(500).json({
+        error: error
+      });
     }
   }
 
@@ -168,22 +196,26 @@ module.exports = class UserController {
     try {
       if (!req.body || !req.body.updateData) {
         res.status(400);
-        res.send({ message: "Preencha os campos obrigatórios!" });
+        res.send({
+          message: "Preencha os campos obrigatórios!"
+        });
         return;
       }
-      
+
       let updateData = req.body.updateData;
-      
+
       let userId = req.body.updateData._id;
-      
+
       let existingUser = await userRepository.getById(userId);
-      
+
       if (!existingUser) {
         res.status(404);
-        res.send({ message: "Usuário não encontrado" });
+        res.send({
+          message: "Usuário não encontrado"
+        });
         return;
       }
-      
+
       if (updateData.email && updateData.email != existingUser.email) {
         if (
           updateData.email.length < 4 ||
@@ -191,36 +223,51 @@ module.exports = class UserController {
           updateData.email.indexOf(".") < 0
         ) {
           res.status(400);
-          res.send({ message: "Email inválido" });
+          res.send({
+            message: "Email inválido"
+          });
           return;
         } else {
           let userWithSameEmail = await userRepository.getByEmail(
             updateData.email
           );
-      
+
           if (userWithSameEmail) {
             res.status(409);
-            res.send({ message: "Já existe um usuário com este email" });
+            res.send({
+              message: "Já existe um usuário com este email"
+            });
             return;
           }
         }
         existingUser.email = updateData.email;
       }
-      
+
       if (updateData.username) {
+        if (
+          updateData.username.length < 3 ||
+          updateData.username.length > 15
+        ) {
+          res.status(400);
+          res.send({
+            message: "O usuário precisa ter pelo menos 3 caracteres e no máximo 15",
+          });
+          return;
+        }
         existingUser.username = updateData.username;
       }
-      
+
       if (updateData.changePassword) {
         if (updateData.password) {
-          if (updateData.password < 6) {
+          if (updateData.password.length < 6 ||
+            updateData.password.length > 12) {
             res.status(400);
             res.send({
               message: "A senha precisa ter pelo menos 6 caracteres",
             });
             return;
           }
-      
+
           if (
             !security.matchPassword(
               updateData.oldPassword,
@@ -233,19 +280,23 @@ module.exports = class UserController {
             });
             return;
           }
-      
+
           existingUser.password = security.encryptPassword(
             updateData.password
           );
         }
       }
-      
+
       await userRepository.updateOne(existingUser);
-      
+
       res.status(200);
-      res.send({ message: "Usuário modificado com sucesso!" });
+      res.send({
+        message: "Usuário modificado com sucesso!"
+      });
     } catch (error) {
-      res.status(500).json({error: error});
+      res.status(500).json({
+        error: error
+      });
     }
   }
 
@@ -253,25 +304,33 @@ module.exports = class UserController {
     try {
       if (!req.params.id) {
         res.status(400);
-        res.send({ message: "Informe o ID do usuário!" });
+        res.send({
+          message: "Informe o ID do usuário!"
+        });
         return;
       }
-  
+
       let userId = req.params.id;
-  
+
       userRepository.getById(userId).then((existingUser) => {
         if (existingUser) {
           userRepository.removeById(userId).then(() => {
             res.status(200);
-            res.send({ message: "Usuário removido com sucesso!" });
+            res.send({
+              message: "Usuário removido com sucesso!"
+            });
           });
         } else {
           res.status(400);
-          res.send({ message: "Este usuário não está cadastrado" });
+          res.send({
+            message: "Este usuário não está cadastrado"
+          });
         }
       });
     } catch (error) {
-      res.status(500).json({error: error})
+      res.status(500).json({
+        error: error
+      })
     }
   }
 }
