@@ -34,7 +34,6 @@ module.exports = class PropertyController {
       if (
         !req.body ||
         !req.body.propertyData ||
-        !req.body.propertyData.publicationDate ||
         !req.body.propertyData.title ||
         !req.body.propertyData.description ||
         !req.body.propertyData.price  ||
@@ -211,6 +210,7 @@ module.exports = class PropertyController {
             cep: req.body.propertyData.cep,
             city: req.body.propertyData.city,
             uf: req.body.propertyData.uf,
+            publicationDate: new Date(),
             createdAt: dateTime.create()
           };
     
