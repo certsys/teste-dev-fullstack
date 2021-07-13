@@ -35,7 +35,7 @@ export default {
     logout() {
       service.logout().then(
         (response) => {
-          console.log(response);
+          this.showError = false;
         },
         () => {
           this.showError = true;
