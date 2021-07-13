@@ -6,6 +6,7 @@ const DefaultContainer = () => import('@/containers/DefaultContainer')
 
 // Views
 const Dashboard = () => import('@/views/Dashboard')
+const Users = () => import('@/views/Users')
 
 // Views - Pages
 const Page404 = () => import('@/views/pages/Page404')
@@ -31,6 +32,11 @@ function configRoutes() {
           path: 'dashboard',
           name: 'dashboard',
           component: Dashboard
+        },
+        {
+          path: 'users',
+          name: 'users',
+          component: Users
         }
       ]
     },
