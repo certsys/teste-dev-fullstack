@@ -3,20 +3,14 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
-          <div class="card-header">Imóveis</div>
+          <div class="card-header">Usuários</div>
           <div class="card-body">
             <table class="table table-responsive-sm table-bordered">
               <thead>
                 <tr>
-                  <th>Data</th>
-                  <th>Título</th>
-                  <th>Descrição</th>
-                  <th>Valor</th>
-                  <th>Endereço</th>
-                  <th>Bairro</th>
-                  <th>CEP</th>
-                  <th>Cidade</th>
-                  <th>UF</th>
+                  <th>Usuário</th>
+                  <th>Email</th>
+                  <th>Gerenciar</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,7 +48,7 @@ import service from "./../service";
 import Router from "vue-router";
 
 export default {
-  name: "dashboard",
+  name: "users",
   data: function () {
     return {
       properties: []
