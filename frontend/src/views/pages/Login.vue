@@ -52,11 +52,50 @@ export default {
   },
   methods: {
     login(){
+      if(this.email && this.key){
+        this.errorMessage = undefined;
+        service
+        .login({
+          signinData: {
+            email: this.email,
+            key: this.key
+          }
+        })
+        .then(
+          result => {
+            if (
+              result &&
+              result.auth &&
+              result.token &&
+              result.user
+            ) {
+              localStorage.userId = result.user.userId;
+              localStorage.userEmail = result.user.email;
+              localStorage.token = result.token;
+              this.$router.push("/dashboard");
+            }
+          },
+          () => {
+            this.errorMessage = "Tente novamente!";
+          }
+        );
+      } else {
+        this.errorMessage = "Preencha os campos!";
+      }
     },
     register(){
+      this.$router.push("/pages/Register");
     }
   },
   created: function() {
+    if (
+      localStorage.token &&
+      localStorage.userId &&
+      localStorage.userEmail
+    ) {
+      this.$router.push("/dashboard");
+    } else {
+    }
   }
 };
 </script>

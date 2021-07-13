@@ -66,9 +66,41 @@ export default {
   },
   methods: {
     register: function() {
+      if (this.password == this.passwordConfirmation) {
+          service
+            .register({
+              signupData: {
+                  email: this.email,
+                  password: this.password,
+                  username: this.username
+                }
+              }
+            )
+            .then(result => {
+              localStorage.userId = result.user.userId;
+              localStorage.userEmail = result.user.email;
+              localStorage.token = result.token;
+              Vue.toasted.success(result.message, {
+                icon: {
+                  name: "check-circle",
+                },
+                duration: "5000",
+                position: "bottom-right",
+              });
+              this.$router.push("/dashboard");
+            })
+            .catch(error => {
+              console.log(error);
+              if (error && error.message) {
+                this.errorMessage = error.message;
+              } else {
+                this.errorMessage = "Confira os dados e tente novamente.";
+              }
+            });
+      } else {
+        this.errorMessage = "Confira os dados e tente novamente.";
+      }
     }
-  },
-  created() {
   }
 };
 </script>
