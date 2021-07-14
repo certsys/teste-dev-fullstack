@@ -97,7 +97,7 @@
                 </b-form-group>
               </validation-provider>
               <validation-provider name="Área" rules="required" v-slot="validationContext">
-                <b-form-group id="Area-Group" label="Área" label-for="AreaInput">
+                <b-form-group id="Area-Group" label="Área (m²)" label-for="AreaInput">
                   <b-form-input
                     id="AreaInput"
                     name="AreaInput"
@@ -400,7 +400,7 @@
                 </b-form-group>
               </validation-provider>
               <validation-provider name="Área" rules="required" v-slot="validationContext">
-                <b-form-group id="Area-Group" label="Área" label-for="AreaInput">
+                <b-form-group id="Area-Group" label="Área (m²)" label-for="AreaInput">
                   <b-form-input
                     id="AreaInput"
                     name="AreaInput"
