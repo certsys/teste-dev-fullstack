@@ -4,6 +4,13 @@ import Config from '../config'
 
 const baseURL = Config.BASE_API_URL;
 
+const logout = function () {
+  localStorage.removeItem("token");
+  localStorage.removeItem("userEmail");
+  localStorage.removeItem("userId");
+  router.push("/pages/login");
+};
+
 export default {
   name: 'service',
   unregister: Interceptor.register({
@@ -60,22 +67,7 @@ export default {
         }
       })
   },
-  logout: function () {
-    return fetch(baseURL + 'auth', {
-      method: 'DELETE'
-    })
-      .then(function (response) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userEmail");
-        localStorage.removeItem("userId");
-        router.push("/pages/login");
-        if (response && response.status && response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject();
-        }
-      })
-  },
+  logout: logout,
   register: function (signupData) {
     return fetch(baseURL + 'User', {
       method: 'POST',
@@ -123,5 +115,55 @@ export default {
           return response.json().then(json => { return Promise.reject(json) });
         }
       });
+  },
+  registerProperty: function (propertyData) {
+    return fetch(baseURL + 'Property/', {
+      method: 'POST',
+      body: JSON.stringify(propertyData)
+    })
+      .then(function (response) {
+        if (response && response.status && response.status === 200) {
+          return response.json();
+        } else {
+          return response.json().then(json => { return Promise.reject(json) });
+        }
+      })
+  },
+  editProperty: function (updateData) {
+    return fetch(baseURL + 'Property/edit', {
+      method: 'POST',
+      body: JSON.stringify(updateData)
+    })
+      .then(function (response) {
+        if (response && response.status && response.status === 200) {
+          return response.json();
+        } else {
+          return response.json().then(json => { return Promise.reject(json) });
+        }
+      })
+  },
+  deleteProperty: function (propertyId) {
+    return fetch(baseURL + 'Property/' + propertyId, {
+      method: 'DELETE'
+    }).then(function (response) {
+      if (response && response.status && response.status === 200) {
+        return response.json();
+      } else {
+        return response.json().then(json => { return Promise.reject(json) });
+      }
+    })
+  },
+  getUsers: function (filter) {
+    return fetch(baseURL + 'User/getUsers/', {
+      method: 'POST',
+      body: JSON.stringify(filter)
+    })
+      .then(function (response) {
+        if (response && response.status && response.status === 200) {
+          return response.json();
+        } else {
+          return response.json().then(json => { return Promise.reject(json) });
+        }
+      })
   },
 };
