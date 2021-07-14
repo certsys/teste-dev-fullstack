@@ -4,6 +4,7 @@ const UserController = require("../controllers/UserController");
 const Auth = require('../auth');
 
 router.get("/", Auth.requireLogin, UserController.getAll);
+router.post("/getUsers", Auth.requireLogin, UserController.getUsers);
 router.get("/me", Auth.requireLogin, UserController.me);
 router.post("/", UserController.insert);
 router.get("/:id", Auth.requireLogin, UserController.getById);

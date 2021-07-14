@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const getSendableUser = (user) => {
   let sendableUser = {
-    userId: user._id,
+    userId: user._id.toString(),
     email: user.email,
     username: user.username
   };
@@ -47,7 +47,7 @@ module.exports = class UserController {
           const token = jwt.sign({
             id: existingUser._id
           }, process.env.SECRET, {
-            expiresIn: 1800 // 30min
+            expiresIn: 3600 // 60min
           });
           return res.send({
             auth: true,
@@ -97,6 +97,16 @@ module.exports = class UserController {
       res.status(500).json({
         error: error
       });
+    }
+  }
+
+  static async getUsers(req, res) {
+    try {
+      let filter = req.body;
+      const users = await userRepository.getUsers(filter);
+      res.send({users: users});
+    } catch (error) {
+      res.status(500).json({error: error})
     }
   }
 
