@@ -558,6 +558,7 @@
         </form>
       </validation-observer>
     </b-modal>
+    <!-- MODALS END -->
     <div class="row">
       <div class="col-lg-12 text-right">
         <button class="btn btn-primary" type="button" @click="modalAddPropertyShow=true;">
@@ -573,6 +574,49 @@
         <div class="card">
           <div class="card-header">Imóveis</div>
           <div class="card-body">
+            <div class="row" style="padding:2%">
+              <div>
+                <h6>UF:</h6>
+                <b-form-select style=" margin-bottom:10px;" v-model="filterUF">
+                  <option v-for="uf in optionsUF" 
+                    :key="uf.code"
+                    :value="uf.code"
+                  >
+                  {{ uf.name }}
+                  </option>
+                </b-form-select>
+              </div>
+              <div style="margin-left:10px;">
+                <h6>Área:</h6>
+                <b-form-select style=" margin-bottom:10px;" v-model="filterArea">
+                  <option v-for="(area, idx) in optionsArea" 
+                    :key="idx"
+                    :value="area.value"
+                  >
+                  {{ area.text }}
+                  </option>
+                </b-form-select>
+              </div>
+              <div style="margin-left:10px;">
+                <h6>Valor:</h6>
+                <b-form-select style=" margin-bottom:10px;" v-model="filterPrice">
+                  <option v-for="(price, idx) in optionsPrice" 
+                    :key="idx"
+                    :value="price.value"
+                  >
+                  {{ price.text }}
+                  </option>
+                </b-form-select>
+              </div>
+              <div style="margin-left:10px; ">
+                <button
+                  @click="getProperties"
+                  style="margin-top:40%;"
+                  type="button"
+                  class="btn btn-primary"
+                >Filtrar</button>
+              </div>
+            </div>
             <table class="table table-responsive-sm table-bordered">
               <thead class="text-center">
                 <tr>
@@ -678,6 +722,51 @@ export default {
         uf: null
       },
       editForm: undefined,
+      filterUF: undefined,
+      filterArea: undefined,
+      filterPrice: undefined,
+      optionsUF: [
+        {name: "Todos", code: undefined},
+        {name: "Acre", code: "AC"},
+        {name: "Alagoas", code: "AL"},
+        {name: "Amapá", code: "AP"},
+        {name: "Amazonas", code: "AM"},
+        {name: "Bahia", code: "BA"},
+        {name: "Ceará", code: "CE"},
+        {name: "Distrito Federal", code: "DF"},
+        {name: "Espírito Santo", code: "ES"},
+        {name: "Goiás", code: "GO"},
+        {name: "Maranhão", code: "MA"},
+        {name: "Mato Grosso", code: "MT"},
+        {name: "Mato Grosso do Sul", code: "MS"},
+        {name: "Minas Gerais", code: "MG"},
+        {name: "Pará", code: "PA"},
+        {name: "Paraíba", code: "PB"},
+        {name: "Paraná", code: "PR"},
+        {name: "Pernambuco", code: "PE"},
+        {name: "Piauí", code: "PI"},
+        {name: "Rio de Janeiro", code: "RJ"},
+        {name: "Rio Grande do Norte", code: "RN"},
+        {name: "Rio Grande do Sul", code: "RS"},
+        {name: "Rondônia", code: "RO"},
+        {name: "Roraima", code: "RR"},
+        {name: "Santa Catarina", code: "SC"},
+        {name: "São Paulo", code: "SP"},
+        {name: "Sergipe", code: "SE"},
+        {name: "Tocantins", code: "TO"}
+      ],
+      optionsArea: [
+        {text: "Qualquer", value: undefined},
+        {text: "Até 100 m²", value: {$lte: 100}},
+        {text: "Entre 100 m² e 500 m²", value: {$gt: 100, $lt: 500}},
+        {text: "Maior que 500 m²", value: {$gte: 500}}
+      ],
+      optionsPrice: [
+        {text: "Qualquer", value: undefined},
+        {text: "Até R$100.000,00", value: {$lte: 100000}},
+        {text: "Entre R$100.000,00 e R$500.000,00", value: {$gt: 100000, $lt: 500000}},
+        {text: "Maior que R$500.000,00", value: {$gte: 500000}}
+      ]
     };
   },
   components: {
@@ -783,8 +872,9 @@ export default {
     getProperties() {
       let filter = {};
       filter.currentPage = this.currentPage;
-      filter.startDate = this.startDate;
-      filter.endDate = this.endDate;
+      filter.uf = this.filterUF;
+      filter.area = this.filterArea;
+      filter.price = this.filterPrice;
       service.getProperties(filter).then(
         response => {
           this.properties = response.properties.properties;
@@ -818,6 +908,8 @@ export default {
       }
     },
     editProperty(){
+      this.editForm.price = parseInt(this.editForm.price);
+      this.editForm.area = parseInt(this.editForm.area);
       service
         .editProperty({
           updateData: this.editForm
