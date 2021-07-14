@@ -77,20 +77,33 @@ export default {
               }
             )
             .then(result => {
-              localStorage.userId = result.user.userId;
-              localStorage.userEmail = result.user.email;
-              localStorage.token = result.token;
-              Vue.toasted.success(result.message, {
-                icon: {
-                  name: "check-circle",
+              service
+              .login({
+                signinData: {
+                  email: this.email,
+                  key: this.password
+                }
+              })
+              .then(
+                result => {
+                  if (
+                    result &&
+                    result.auth &&
+                    result.token &&
+                    result.user
+                  ) {
+                    localStorage.userId = result.user.userId;
+                    localStorage.userEmail = result.user.email;
+                    localStorage.token = result.token;
+                    this.$router.push("/dashboard");
+                  }
                 },
-                duration: "5000",
-                position: "bottom-right",
-              });
-              this.$router.push("/dashboard");
+                () => {
+                  this.errorMessage = "Tente fazer login novamente!";
+                }
+              );
             })
             .catch(error => {
-              console.log(error);
               if (error && error.message) {
                 this.errorMessage = error.message;
               } else {
