@@ -9,6 +9,8 @@ import BootstrapVue from 'bootstrap-vue'
 import App from './App'
 import router from './router'
 import Toasted from 'vue-toasted';
+import "./vee-validate";
+import { VueMaskDirective } from "v-mask";
 
 // todo
 // cssVars()
@@ -18,6 +20,7 @@ Vue.use(require('vue-moment'));
 Vue.use(Toasted, {
   iconPack: 'fontawesome'
 });
+Vue.directive("mask", VueMaskDirective);
 
 /* eslint-disable no-new */
 new Vue({
