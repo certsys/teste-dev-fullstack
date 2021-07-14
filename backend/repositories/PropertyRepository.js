@@ -4,34 +4,22 @@ const { ObjectId } = require("mongodb");
 module.exports = class PropertyRepository {
   static async getProperties(filter) {
     const db = await database.connect();
-    let myStartDate = null;
-    let myEndDate = null;
     let limit = 10;
     let properties = [];
     let totalItems = 0;
 
-    if(filter.startDate){
-      myStartDate = new Date(filter.startDate);
-    }
-    
-    if(filter.endDate){
-      myEndDate = new Date(filter.endDate);
-    }
-
     let query = {};
 
-    if (filter.startDate != null) {
-      query.publicationDate = { $gt: myStartDate.toJSON() };
-    }
-    if (filter.endDate != null) {
-      query.publicationDate = { $lt: myEndDate.toJSON() };
+    if (filter.uf) {
+      query.uf = filter.uf;
     }
 
-    if (filter.startDate != null && filter.endDate != null) {
-      query.publicationDate = {
-        $gt: myStartDate.toJSON(),
-        $lt: myEndDate.toJSON(),
-      };
+    if (filter.area) {
+      query.area = filter.area
+    }
+
+    if (filter.price) {
+      query.price = filter.price
     }
 
     properties = await db.collection("Property")
@@ -40,7 +28,7 @@ module.exports = class PropertyRepository {
       .skip(filter.currentPage > 0 ? (filter.currentPage - 1) * limit : 0)
       .sort({ publicationDate: -1 })
       .toArray();
-      
+
     totalItems = await db.collection("Property").find().count();
 
     return {
