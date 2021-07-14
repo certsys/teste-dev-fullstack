@@ -6,36 +6,30 @@
           <div class="card-header">Usuários</div>
           <div class="card-body">
             <table class="table table-responsive-sm table-bordered">
-              <thead>
+              <thead class="text-center">
                 <tr>
                   <th>Usuário</th>
                   <th>Email</th>
-                  <th>Gerenciar</th>
+                  <th>Membro desde</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="text-center">
+                <tr v-for="user in users" v-bind:key="user._id">
+                  <td>{{user.username}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.createdAt._now | moment("DD/MM/YYYY HH:mm")}}</td>
+                </tr>
               </tbody>
             </table>
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#">Anterior</a>
-              </li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">4</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">Próxima</a>
-              </li>
-            </ul>
+            <b-pagination
+              :total-rows="totalItems"
+              :per-page="10"
+              v-model="currentPage"
+              v-on:input="getUsers"
+              align="center"
+              prev-text="Anterior"
+              next-text="Próxima"
+            ></b-pagination>
           </div>
         </div>
       </div>
@@ -51,13 +45,29 @@ export default {
   name: "users",
   data: function () {
     return {
-      properties: []
+      users: [],
+      currentPage: 1,
+      totalItems: 1,
+      showError: false
     };
   },
   methods: {
-    
+    getUsers() {
+      let filter = {};
+      filter.currentPage = this.currentPage;
+      service.getUsers(filter).then(
+        response => {
+          this.users = response.users.users;
+          this.totalItems = response.users.totalItems;
+        },
+        () => {
+          this.showError = true;
+        }
+      );
+    },
   },
   created: function () {
+    this.getUsers();
   },
 };
 </script>
