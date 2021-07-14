@@ -98,4 +98,30 @@ export default {
       }
     });
   },
+  getProperties: function (filter) {
+    return fetch(baseURL + 'Property/getProperties/', {
+      method: 'POST',
+      body: JSON.stringify(filter)
+    })
+      .then(function (response) {
+        if (response && response.status && response.status === 200) {
+          return response.json();
+        } else {
+          return response.json().then(json => { return Promise.reject(json) });
+        }
+      })
+  },
+  searchCep: function (cep) {
+    return fetch("https://viacep.com.br/ws/"+cep+"/json/", {
+      method: 'GET',
+      bypassInterceptor: true
+    })
+      .then(function (response) {
+        if (response && response.status && response.status === 200) {
+          return response.json();
+        } else {
+          return response.json().then(json => { return Promise.reject(json) });
+        }
+      });
+  },
 };
