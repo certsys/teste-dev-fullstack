@@ -8,6 +8,7 @@ module.exports = class PropertyRepository {
     let myEndDate = null;
     let limit = 10;
     let properties = [];
+    let totalItems = 0;
 
     if(filter.startDate){
       myStartDate = new Date(filter.startDate);
@@ -39,8 +40,13 @@ module.exports = class PropertyRepository {
       .skip(filter.currentPage > 0 ? (filter.currentPage - 1) * limit : 0)
       .sort({ publicationDate: -1 })
       .toArray();
+      
+    totalItems = await db.collection("Property").find().count();
 
-    return properties;
+    return {
+      properties: properties,
+      totalItems: totalItems
+    }
   }
 
   static async getAll() {

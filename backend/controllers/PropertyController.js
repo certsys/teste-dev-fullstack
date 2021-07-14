@@ -1,7 +1,17 @@
 const propertyRepository = require("../repositories/PropertyRepository");
+const userRepository = require("../repositories/UserRepository");
 const isValidCEP = require('@brazilian-utils/is-valid-cep');
 const dateTime = require("node-datetime");
 const moment = require('moment');
+
+const getSendableUser = (user) => {
+  let sendableUser = {
+    userId: user._id.toString(),
+    email: user.email,
+    username: user.username
+  };
+  return sendableUser;
+};
 
 module.exports = class PropertyController {
   static async getAll(req, res) {
@@ -51,7 +61,6 @@ module.exports = class PropertyController {
         !req.body.propertyData.area ||
         !req.body.propertyData.address ||
         !req.body.propertyData.number ||
-        !req.body.propertyData.additionalAddress ||
         !req.body.propertyData.neighborhood ||
         !req.body.propertyData.cep ||
         !req.body.propertyData.city ||
@@ -117,11 +126,11 @@ module.exports = class PropertyController {
       if (req.body.propertyData.address) {
         if (
           req.body.propertyData.address.length < 3 ||
-          req.body.propertyData.address.length > 30
+          req.body.propertyData.address.length > 50
         ) {
           res.status(400);
           res.send({
-            message: "O endereço do imóvel precisa ter pelo menos 3 caracteres e no máximo 30",
+            message: "O endereço do imóvel precisa ter pelo menos 3 caracteres e no máximo 50",
           });
           return;
         }
@@ -201,6 +210,9 @@ module.exports = class PropertyController {
         }
       }
 
+      let user = await userRepository.getById(req.userId);
+      user = getSendableUser(user);
+
       let propertyTitle = req.body.propertyData.title;
     
       propertyRepository.getByTitle(propertyTitle).then((existingProperty) => {
@@ -222,6 +234,7 @@ module.exports = class PropertyController {
             city: req.body.propertyData.city,
             uf: req.body.propertyData.uf,
             publicationDate: moment().format(),
+            user: user,
             createdAt: dateTime.create()
           };
     
@@ -327,11 +340,11 @@ module.exports = class PropertyController {
       if (updateData.address) {
         if (
           updateData.address.length < 3 ||
-          updateData.address.length > 30
+          updateData.address.length > 50
         ) {
           res.status(400);
           res.send({
-            message: "O endereço do imóvel precisa ter pelo menos 3 caracteres e no máximo 30",
+            message: "O endereço do imóvel precisa ter pelo menos 3 caracteres e no máximo 50",
           });
           return;
         }
