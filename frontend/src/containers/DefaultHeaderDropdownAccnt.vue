@@ -33,14 +33,7 @@ export default {
   },
   methods: {
     logout() {
-      service.logout().then(
-        (response) => {
-          this.showError = false;
-        },
-        () => {
-          this.showError = true;
-        }
-      );
+      service.logout();
     },
     getMe: function() {
       service.getMe().then(
