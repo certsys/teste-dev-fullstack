@@ -12,9 +12,6 @@ import Toasted from 'vue-toasted';
 import "./vee-validate";
 import { VueMaskDirective } from "v-mask";
 
-// todo
-// cssVars()
-
 Vue.use(BootstrapVue)
 Vue.use(require('vue-moment'));
 Vue.use(Toasted, {
