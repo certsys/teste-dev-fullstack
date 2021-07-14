@@ -1,6 +1,7 @@
 const propertyRepository = require("../repositories/PropertyRepository");
 const isValidCEP = require('@brazilian-utils/is-valid-cep');
 const dateTime = require("node-datetime");
+const moment = require('moment');
 
 module.exports = class PropertyController {
   static async getAll(req, res) {
@@ -26,6 +27,16 @@ module.exports = class PropertyController {
       res.status(500).json({
         error: error
       });
+    }
+  }
+
+  static async getProperties(req, res) {
+    try {
+      let filter = req.body;
+      const properties = await propertyRepository.getProperties(filter);
+      res.send({properties: properties});
+    } catch (error) {
+      res.status(500).json({error: error})
     }
   }
 
@@ -210,7 +221,7 @@ module.exports = class PropertyController {
             cep: req.body.propertyData.cep,
             city: req.body.propertyData.city,
             uf: req.body.propertyData.uf,
-            publicationDate: new Date(),
+            publicationDate: moment().format(),
             createdAt: dateTime.create()
           };
     
