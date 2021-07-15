@@ -1,4 +1,4 @@
-import { MissingParamError } from '../../errors/missing-param-error';
+import { MissingParamError } from '../../../errors/missing-param-error';
 import AddPropertyController from './add-property';
 
 describe('Add Imovel', () => {
