@@ -20,6 +20,8 @@
     "moment": "^2.29.1",
     "mongodb": "^3.6.10",
     "node-datetime": "^2.1.2",
-    "npm": "^7.19.1"
+    "npm": "^7.19.1",
+    "swagger-autogen": "^2.10.4",
+    "swagger-ui-express": "^4.1.6"
   }
 }
