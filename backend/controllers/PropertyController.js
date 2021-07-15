@@ -138,11 +138,11 @@ module.exports = class PropertyController {
 
       if (req.body.propertyData.number) {
         if (
-          req.body.propertyData.number < 0
+          req.body.propertyData.number.length < 1
         ) {
           res.status(400);
           res.send({
-            message: "O número do imóvel precisa ser positivo",
+            message: "O número do imóvel está inválido",
           });
           return;
         }
