@@ -1,8 +1,9 @@
 import { MissingParamError } from '../../errors/missing-param-error';
 import { badRequest } from '../../helpers/http-helper';
+import { Controller } from '../../protocols/controller';
 import { HttpRequest, HttpResponse } from '../../protocols/http';
 
-export default class AddPropertyController {
+export default class AddPropertyController implements Controller {
   handle(httpRequest: HttpRequest): HttpResponse {
     const requiredFields = [
       'publication_date',
