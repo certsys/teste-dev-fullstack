@@ -1,3 +1,4 @@
+import { MissingParamError } from '../../errors/missing-param-error';
 import { HttpRequest, HttpResponse } from '../../protocols/http';
 
 export default class AddPropertyController {
@@ -5,14 +6,14 @@ export default class AddPropertyController {
     if (!httpRequest.body.publication_date) {
       return {
         statusCode: 400,
-        body: new Error('Missing param: Publication date'),
+        body: new MissingParamError('Publication date'),
       };
     }
 
     if (!httpRequest.body.title) {
       return {
         statusCode: 400,
-        body: new Error('Missing param: Title'),
+        body: new MissingParamError('Title'),
       };
     }
   }

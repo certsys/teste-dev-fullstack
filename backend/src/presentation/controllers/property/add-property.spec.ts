@@ -1,3 +1,4 @@
+import { MissingParamError } from '../../errors/missing-param-error';
 import AddPropertyController from './add-property';
 
 describe('Add Imovel', () => {
@@ -22,7 +23,7 @@ describe('Add Imovel', () => {
     const httpResponse = sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual(
-      new Error('Missing param: Publication date'),
+      new MissingParamError('Publication date'),
     );
   });
 
@@ -46,6 +47,6 @@ describe('Add Imovel', () => {
     };
     const httpResponse = sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new Error('Missing param: Title'));
+    expect(httpResponse.body).toEqual(new MissingParamError('Title'));
   });
 });
