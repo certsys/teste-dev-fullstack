@@ -1,5 +1,7 @@
+import { HttpRequest, HttpResponse } from '../../protocols/http';
+
 export default class AddPropertyController {
-  handle(httpRequest: any): any {
+  handle(httpRequest: HttpRequest): HttpResponse {
     if (!httpRequest.body.publication_date) {
       return {
         statusCode: 400,
