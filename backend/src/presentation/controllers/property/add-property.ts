@@ -4,12 +4,26 @@ import { HttpRequest, HttpResponse } from '../../protocols/http';
 
 export default class AddPropertyController {
   handle(httpRequest: HttpRequest): HttpResponse {
-    if (!httpRequest.body.publication_date) {
-      return badRequest(new MissingParamError('Publication date'));
-    }
+    const requiredFields = [
+      'publication_date',
+      'title',
+      'description',
+      'value',
+      'area',
+      'address',
+      'public_place',
+      'number',
+      'adjunct',
+      'neighborhood',
+      'zip_code',
+      'city',
+      'state',
+    ];
 
-    if (!httpRequest.body.title) {
-      return badRequest(new MissingParamError('Title'));
+    for (const field of requiredFields) {
+      if (!httpRequest.body[field]) {
+        return badRequest(new MissingParamError(field));
+      }
     }
   }
 }

@@ -23,7 +23,7 @@ describe('Add Imovel', () => {
     const httpResponse = sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual(
-      new MissingParamError('Publication date'),
+      new MissingParamError('publication_date'),
     );
   });
 
@@ -47,6 +47,6 @@ describe('Add Imovel', () => {
     };
     const httpResponse = sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new MissingParamError('Title'));
+    expect(httpResponse.body).toEqual(new MissingParamError('title'));
   });
 });
