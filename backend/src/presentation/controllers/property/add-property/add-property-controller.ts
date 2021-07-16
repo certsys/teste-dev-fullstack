@@ -1,30 +1,14 @@
-import { MissingParamError } from '../../../errors/missing-param-error';
-import { badRequest } from '../../../helpers/http-helper';
-import { Controller } from '../../../protocols/controller';
-import { HttpRequest, HttpResponse } from '../../../protocols/http';
+import {
+  Controller,
+  HttpRequest,
+  HttpResponse,
+  Validation,
+} from './add-property-controller-protocols';
 
 export default class AddPropertyController implements Controller {
-  handle(httpRequest: HttpRequest): HttpResponse {
-    const requiredFields = [
-      'publication_date',
-      'title',
-      'description',
-      'value',
-      'area',
-      'address',
-      'public_place',
-      'number',
-      'adjunct',
-      'neighborhood',
-      'zip_code',
-      'city',
-      'state',
-    ];
-
-    for (const field of requiredFields) {
-      if (!httpRequest.body[field]) {
-        return badRequest(new MissingParamError(field));
-      }
-    }
+  constructor(private readonly validation: Validation) {}
+  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    this.validation.validate(httpRequest.body);
+    return new Promise(resolve => resolve(null));
   }
 }
