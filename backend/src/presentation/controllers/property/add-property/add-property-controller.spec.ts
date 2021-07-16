@@ -1,4 +1,9 @@
-import { HttpRequest, Validation } from './add-property-controller-protocols';
+import {
+  AddProperty,
+  AddPropertyModel,
+  HttpRequest,
+  Validation,
+} from './add-property-controller-protocols';
 
 import AddPropertyController from './add-property-controller';
 import { badRequest } from '../../../helpers/http-helper';
@@ -33,17 +38,30 @@ const makeValidation = (): Validation => {
   return new ValidationStub();
 };
 
+const makeAddProperty = (): AddProperty => {
+  class AddPropertyStub implements AddProperty {
+    async add(data: AddPropertyModel): Promise<void> {
+      return new Promise(resolve => resolve());
+    }
+  }
+
+  return new AddPropertyStub();
+};
+
 interface SutTypes {
   sut: AddPropertyController;
   validationStub: Validation;
+  addPropertyStub: AddProperty;
 }
 
 const makeSut = (): SutTypes => {
   const validationStub = makeValidation();
-  const sut = new AddPropertyController(validationStub);
+  const addPropertyStub = makeAddProperty();
+  const sut = new AddPropertyController(validationStub, addPropertyStub);
   return {
     sut,
     validationStub,
+    addPropertyStub,
   };
 };
 
@@ -61,5 +79,13 @@ describe('AddProperty Controller', () => {
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Error());
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(badRequest(new Error()));
+  });
+
+  test('Should call AddProperty with correct values', async () => {
+    const { sut, addPropertyStub } = makeSut();
+    const addSpy = jest.spyOn(addPropertyStub, 'add');
+    const httpRequest = makeFakeRequest();
+    await sut.handle(httpRequest);
+    expect(addSpy).toHaveBeenCalledWith(httpRequest.body);
   });
 });
