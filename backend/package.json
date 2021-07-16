@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "sucrase-node src/main/server.ts",
-    "test": "jest --watch",
+    "test": "jest --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --runInBand",
+    "test:unit": "npm test --  --watch -c jest-unit-config.js",
+    "test:integration": "npm test --  --watch -c jest-integration-config.js",
+    "test:ci": "npm test -- --coverage",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix"
   },
