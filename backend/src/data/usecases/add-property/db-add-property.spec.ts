@@ -20,16 +20,33 @@ const makePropertyData = (): AddPropertyModel => ({
   state: 'any_state',
 });
 
+const makeAddPropertyRepository = (): AddPropertyRepository => {
+  class AddPropertyRepositoryStub implements AddPropertyRepository {
+    async add(data: AddPropertyModel): Promise<void> {
+      return new Promise(resolve => resolve());
+    }
+  }
+  return new AddPropertyRepositoryStub();
+};
+
+interface SutTypes {
+  sut: DbAddProperty;
+  addPropertyRepositoryStub: AddPropertyRepository;
+}
+
+const makeSut = (): SutTypes => {
+  const addPropertyRepositoryStub = makeAddPropertyRepository();
+  const sut = new DbAddProperty(addPropertyRepositoryStub);
+  return {
+    sut,
+    addPropertyRepositoryStub,
+  };
+};
+
 describe('DbAddProperty UseCase', () => {
   test('Should call AddPropertyRepository with correct values', async () => {
-    class AddPropertyRepositoryStub implements AddPropertyRepository {
-      async add(data: AddPropertyModel): Promise<void> {
-        return new Promise(resolve => resolve());
-      }
-    }
-    const addPropertyRepositoryStub = new AddPropertyRepositoryStub();
+    const { sut, addPropertyRepositoryStub } = makeSut();
     const addSpy = jest.spyOn(addPropertyRepositoryStub, 'add');
-    const sut = new DbAddProperty(addPropertyRepositoryStub);
     const propertyData = makePropertyData();
     await sut.add(propertyData);
     expect(addSpy).toHaveBeenCalledWith(propertyData);
