@@ -51,4 +51,15 @@ describe('DbAddProperty UseCase', () => {
     await sut.add(propertyData);
     expect(addSpy).toHaveBeenCalledWith(propertyData);
   });
+
+  test('Should throw if AddPropertRepository throws', async () => {
+    const { sut, addPropertyRepositoryStub } = makeSut();
+    jest
+      .spyOn(addPropertyRepositoryStub, 'add')
+      .mockReturnValueOnce(
+        new Promise((resolve, reject) => reject(new Error())),
+      );
+    const promise = sut.add(makePropertyData());
+    await expect(promise).rejects.toThrow();
+  });
 });
