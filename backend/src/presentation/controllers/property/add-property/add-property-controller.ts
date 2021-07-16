@@ -1,4 +1,8 @@
-import { badRequest, serverError } from '../../../helpers/http-helper';
+import {
+  badRequest,
+  noContent,
+  serverError,
+} from '../../../helpers/http-helper';
 import {
   AddProperty,
   Controller,
@@ -48,7 +52,7 @@ export default class AddPropertyController implements Controller {
         city,
         state,
       });
-      return null;
+      return noContent();
     } catch (error) {
       return serverError(error);
     }
