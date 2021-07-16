@@ -1,4 +1,4 @@
-import { badRequest } from '../../../helpers/http-helper';
+import { badRequest, serverError } from '../../../helpers/http-helper';
 import {
   AddProperty,
   Controller,
@@ -13,40 +13,44 @@ export default class AddPropertyController implements Controller {
     private readonly addProperty: AddProperty,
   ) {}
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const error = this.validation.validate(httpRequest.body);
-    if (error) {
-      return badRequest(error);
+    try {
+      const error = this.validation.validate(httpRequest.body);
+      if (error) {
+        return badRequest(error);
+      }
+      const {
+        publication_date,
+        title,
+        description,
+        value,
+        area,
+        address,
+        public_place,
+        number,
+        adjunct,
+        neighborhood,
+        zip_code,
+        city,
+        state,
+      } = httpRequest.body;
+      await this.addProperty.add({
+        publication_date,
+        title,
+        description,
+        value,
+        area,
+        address,
+        public_place,
+        number,
+        adjunct,
+        neighborhood,
+        zip_code,
+        city,
+        state,
+      });
+      return null;
+    } catch (error) {
+      return serverError(error);
     }
-    const {
-      publication_date,
-      title,
-      description,
-      value,
-      area,
-      address,
-      public_place,
-      number,
-      adjunct,
-      neighborhood,
-      zip_code,
-      city,
-      state,
-    } = httpRequest.body;
-    await this.addProperty.add({
-      publication_date,
-      title,
-      description,
-      value,
-      area,
-      address,
-      public_place,
-      number,
-      adjunct,
-      neighborhood,
-      zip_code,
-      city,
-      state,
-    });
-    return null;
   }
 }
