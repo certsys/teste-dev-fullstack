@@ -4,3 +4,4 @@ build
 coverage
 /*.js
 globalConfig.json
+data
