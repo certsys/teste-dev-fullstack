@@ -1,4 +1,4 @@
-import { ok } from '../../../helpers/http-helper';
+import { ok, serverError } from '../../../helpers/http-helper';
 import {
   Controller,
   HttpRequest,
@@ -9,7 +9,11 @@ import {
 export class LoadPropertiesController implements Controller {
   constructor(private readonly loadProperties: LoadProperties) {}
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const properties = await this.loadProperties.load();
-    return ok(properties);
+    try {
+      const properties = await this.loadProperties.load();
+      return ok(properties);
+    } catch (error) {
+      return serverError(error);
+    }
   }
 }
