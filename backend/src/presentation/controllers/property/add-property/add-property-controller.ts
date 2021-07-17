@@ -23,6 +23,7 @@ export default class AddPropertyController implements Controller {
         return badRequest(error);
       }
       const {
+        id,
         publication_date,
         title,
         description,
@@ -38,6 +39,7 @@ export default class AddPropertyController implements Controller {
         state,
       } = httpRequest.body;
       await this.addProperty.add({
+        id,
         publication_date,
         title,
         description,

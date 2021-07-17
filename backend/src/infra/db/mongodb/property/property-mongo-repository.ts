@@ -4,7 +4,7 @@ import { MongoHelper } from '../helpers/mongo-helper';
 
 export class PropertyMongoRepository implements AddPropertyRepository {
   async add(propertyData: AddPropertyModel): Promise<void> {
-    const propertyCollection = await MongoHelper.getCollection('propertys');
+    const propertyCollection = await MongoHelper.getCollection('properties');
     await propertyCollection.insertOne(propertyData);
   }
 }
