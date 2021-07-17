@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc",
-    "debug": "node --inspect=0.0.0.0:9222 -nolazy dist/main/server.js",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 -nolazy ./dist/main/server.js",
     "up": "npm run build && docker-compose up",
     "down": "docker-compose down",
     "test": "jest --silent --noStackTrace --runInBand",
@@ -42,7 +42,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "mongodb": "^3.6.10"
+    "mongodb": "^3.6.10",
+    "nodemon": "^2.0.12"
   },
   "engines": {
     "node": "12.x"
