@@ -1,3 +1,4 @@
+import { ok } from '../../../helpers/http-helper';
 import {
   Controller,
   HttpRequest,
@@ -8,7 +9,7 @@ import {
 export class LoadPropertiesController implements Controller {
   constructor(private readonly loadProperties: LoadProperties) {}
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    await this.loadProperties.load();
-    return null;
+    const properties = await this.loadProperties.load();
+    return ok(properties);
   }
 }
