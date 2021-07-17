@@ -76,7 +76,7 @@ describe('AddProperty Controller', () => {
     MockDate.set(new Date());
   });
 
-  beforeAll(() => {
+  afterAll(() => {
     MockDate.reset();
   });
 
