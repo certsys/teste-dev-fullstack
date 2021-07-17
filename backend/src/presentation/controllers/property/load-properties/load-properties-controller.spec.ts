@@ -43,6 +43,29 @@ const makeFakeProperties = (): PropertyModel[] => {
   ];
 };
 
+interface SutTypes {
+  sut: LoadPropertiesController;
+  loadPropertiesStub: LoadProperties;
+}
+
+const makeLoadProperties = (): LoadProperties => {
+  class LoadPropertiesStub implements LoadProperties {
+    async load(): Promise<PropertyModel[]> {
+      return new Promise(resolve => resolve(makeFakeProperties()));
+    }
+  }
+  return new LoadPropertiesStub();
+};
+
+const makeSut = (): SutTypes => {
+  const loadPropertiesStub = makeLoadProperties();
+  const sut = new LoadPropertiesController(loadPropertiesStub);
+  return {
+    sut,
+    loadPropertiesStub,
+  };
+};
+
 describe('LoadProperties Controller', () => {
   beforeAll(() => {
     MockDate.set(new Date());
@@ -53,14 +76,8 @@ describe('LoadProperties Controller', () => {
   });
 
   test('Should call LoadProperties', async () => {
-    class LoadPropertiesStub implements LoadProperties {
-      async load(): Promise<PropertyModel[]> {
-        return new Promise(resolve => resolve(makeFakeProperties()));
-      }
-    }
-    const loadPropertiesStub = new LoadPropertiesStub();
+    const { sut, loadPropertiesStub } = makeSut();
     const loadSpy = jest.spyOn(loadPropertiesStub, 'load');
-    const sut = new LoadPropertiesController(loadPropertiesStub);
     sut.handle({});
     expect(loadSpy).toHaveBeenCalled();
   });
