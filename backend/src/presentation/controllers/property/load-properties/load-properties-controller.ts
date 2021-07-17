@@ -1,4 +1,4 @@
-import { ok, serverError } from '../../../helpers/http-helper';
+import { noContent, ok, serverError } from '../../../helpers/http-helper';
 import {
   Controller,
   HttpRequest,
@@ -11,7 +11,7 @@ export class LoadPropertiesController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const properties = await this.loadProperties.load();
-      return ok(properties);
+      return properties.length ? ok(properties) : noContent();
     } catch (error) {
       return serverError(error);
     }
