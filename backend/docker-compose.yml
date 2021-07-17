@@ -10,10 +10,10 @@ services:
       - '27017:27017'
   api:
     container_name: api-container
-    build: .
-    image: teste-dev-fullstack-api
+    image: node:12
+    working_dir: /usr/src/teste-dev-fulstack-api
     restart: always
-    command: npm run debug
+    command: bash -c "npm install --only=prod && npm run debug"
     volumes:
       - ./dist:/usr/src/teste-dev-fulstack-api/dist
       - ./package.json:/usr/src/teste-dev-fulstack-api/package.json
