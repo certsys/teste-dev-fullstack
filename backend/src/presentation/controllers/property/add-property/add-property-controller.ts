@@ -18,12 +18,12 @@ export default class AddPropertyController implements Controller {
   ) {}
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const error = this.validation.validate(httpRequest.body);
+      const body = { ...httpRequest.body, publication_date: new Date() };
+      const error = this.validation.validate(body);
       if (error) {
         return badRequest(error);
       }
       const {
-        id,
         publication_date,
         title,
         description,
@@ -37,7 +37,7 @@ export default class AddPropertyController implements Controller {
         zip_code,
         city,
         state,
-      } = httpRequest.body;
+      } = body;
       await this.addProperty.add({
         publication_date,
         title,

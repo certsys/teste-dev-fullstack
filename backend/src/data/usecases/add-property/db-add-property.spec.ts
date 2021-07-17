@@ -4,8 +4,10 @@ import {
   AddPropertyRepository,
 } from './db-add-property-protocols';
 
+import MockDate from 'mockdate';
+
 const makePropertyData = (): AddPropertyModel => ({
-  publication_date: 'any_publication_date',
+  publication_date: new Date(),
   title: 'any_title',
   description: 'any_description',
   value: 0,
@@ -44,6 +46,14 @@ const makeSut = (): SutTypes => {
 };
 
 describe('DbAddProperty UseCase', () => {
+  beforeAll(() => {
+    MockDate.set(new Date());
+  });
+
+  beforeAll(() => {
+    MockDate.reset();
+  });
+
   test('Should call AddPropertyRepository with correct values', async () => {
     const { sut, addPropertyRepositoryStub } = makeSut();
     const addSpy = jest.spyOn(addPropertyRepositoryStub, 'add');

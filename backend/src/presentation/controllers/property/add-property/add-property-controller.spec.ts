@@ -12,10 +12,12 @@ import {
   serverError,
 } from '../../../helpers/http-helper';
 
+import MockDate from 'mockdate';
+
 const makeFakeRequest = (): HttpRequest => {
   return {
     body: {
-      publication_date: 'any_publication_date',
+      publication_date: new Date(),
       title: 'any_title',
       description: 'any_description',
       value: 'any_value',
@@ -70,6 +72,14 @@ const makeSut = (): SutTypes => {
 };
 
 describe('AddProperty Controller', () => {
+  beforeAll(() => {
+    MockDate.set(new Date());
+  });
+
+  beforeAll(() => {
+    MockDate.reset();
+  });
+
   test('Should call Validation with correct values', async () => {
     const { sut, validationStub } = makeSut();
     const validateSpy = jest.spyOn(validationStub, 'validate');

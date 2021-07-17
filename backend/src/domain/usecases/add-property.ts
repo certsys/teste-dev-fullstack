@@ -1,5 +1,5 @@
 export interface AddPropertyModel {
-  publication_date: string;
+  publication_date: Date;
   title: string;
   description: string;
   value: number;

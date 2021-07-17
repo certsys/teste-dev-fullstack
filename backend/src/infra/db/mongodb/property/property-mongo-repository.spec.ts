@@ -6,7 +6,7 @@ import { AddPropertyModel } from '../../../../domain/usecases/add-property';
 let propertyCollection: Collection;
 
 const makePropertyData = (): AddPropertyModel => ({
-  publication_date: 'any_publication_date',
+  publication_date: new Date(),
   title: 'any_title',
   description: 'any_description',
   value: 0,
