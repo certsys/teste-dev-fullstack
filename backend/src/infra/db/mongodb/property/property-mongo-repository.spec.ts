@@ -6,6 +6,7 @@ import { AddPropertyModel } from '../../../../domain/usecases/add-property';
 let propertyCollection: Collection;
 
 const makePropertyData = (): AddPropertyModel => ({
+  id: 'any_id',
   publication_date: 'any_publication_date',
   title: 'any_title',
   description: 'any_description',
@@ -31,7 +32,7 @@ describe('Property Mongo Repository', () => {
   });
 
   beforeEach(async () => {
-    propertyCollection = await MongoHelper.getCollection('propertys');
+    propertyCollection = await MongoHelper.getCollection('properties');
     await propertyCollection.deleteMany({});
   });
 
