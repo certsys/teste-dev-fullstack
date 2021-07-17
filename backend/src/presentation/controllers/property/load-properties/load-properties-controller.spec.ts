@@ -5,7 +5,7 @@ import {
 } from './load-properties-controller-protocols';
 
 import MockDate from 'mockdate';
-import { ok } from '../../../helpers/http-helper';
+import { ok, serverError } from '../../../helpers/http-helper';
 
 const makeFakeProperties = (): PropertyModel[] => {
   return [
@@ -87,5 +87,17 @@ describe('LoadProperties Controller', () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(ok(makeFakeProperties()));
+  });
+
+  test('Should return 500 if AddProperty throws', async () => {
+    const { sut, loadPropertiesStub } = makeSut();
+    jest
+      .spyOn(loadPropertiesStub, 'load')
+      .mockReturnValueOnce(
+        new Promise((resolve, reject) => reject(new Error())),
+      );
+
+    const httpResponse = await sut.handle({});
+    expect(httpResponse).toEqual(serverError(new Error()));
   });
 });
