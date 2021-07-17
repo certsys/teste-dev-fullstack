@@ -39,7 +39,6 @@ export default class AddPropertyController implements Controller {
         state,
       } = httpRequest.body;
       await this.addProperty.add({
-        id,
         publication_date,
         title,
         description,

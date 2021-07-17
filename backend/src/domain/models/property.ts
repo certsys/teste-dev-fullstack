@@ -1,4 +1,5 @@
-export interface AddPropertyModel {
+export interface PropertyModel {
+  id: string;
   publication_date: string;
   title: string;
   description: string;
@@ -12,8 +13,4 @@ export interface AddPropertyModel {
   zip_code: string;
   city: string;
   state: string;
-}
-
-export interface AddProperty {
-  add(data: AddPropertyModel): Promise<void>;
 }
