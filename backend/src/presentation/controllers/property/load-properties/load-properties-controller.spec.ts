@@ -5,6 +5,7 @@ import {
 } from './load-properties-controller-protocols';
 
 import MockDate from 'mockdate';
+import { ok } from '../../../helpers/http-helper';
 
 const makeFakeProperties = (): PropertyModel[] => {
   return [
@@ -78,7 +79,13 @@ describe('LoadProperties Controller', () => {
   test('Should call LoadProperties', async () => {
     const { sut, loadPropertiesStub } = makeSut();
     const loadSpy = jest.spyOn(loadPropertiesStub, 'load');
-    sut.handle({});
+    await sut.handle({});
     expect(loadSpy).toHaveBeenCalled();
+  });
+
+  test('Should return 200 on success', async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle({});
+    expect(httpResponse).toEqual(ok(makeFakeProperties()));
   });
 });
