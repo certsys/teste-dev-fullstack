@@ -48,4 +48,33 @@ describe('Property Mongo Repository', () => {
       expect(property).toBeTruthy();
     });
   });
+
+  describe('loadAll()', () => {
+    test('Should load all properties on success', async () => {
+      await propertyCollection.insertMany([
+        makePropertyData(),
+        {
+          publication_date: new Date(),
+          title: 'other_title',
+          description: 'other_description',
+          value: 0,
+          area: 'other_area',
+          address: 'other_address',
+          public_place: 'other_public_place',
+          number: 'other_number',
+          adjunct: 'other_adjunct',
+          neighborhood: 'other_neighborhood',
+          zip_code: 'other_zip_code',
+          city: 'other_city',
+          state: 'other_state',
+        },
+      ]);
+      const sut = makeSut();
+      const propertyData = makePropertyData();
+      const properties = await sut.loadAll();
+      expect(properties.length).toBe(2);
+      expect(properties[0].title).toBe('any_title');
+      expect(properties[1].title).toBe('other_title');
+    });
+  });
 });
