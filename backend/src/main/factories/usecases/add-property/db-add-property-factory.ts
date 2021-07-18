@@ -1,4 +1,4 @@
-import { DbAddProperty } from '../../../../data/usecases/add-property/db-add-property';
+import { DbAddProperty } from '../../../../dataLayer/usecases/add-property/db-add-property';
 import { AddProperty } from '../../../../domain/usecases/add-property';
 import { PropertyMongoRepository } from '../../../../infra/db/mongodb/property/property-mongo-repository';
 
