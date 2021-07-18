@@ -11,8 +11,8 @@ export class LoadPropertyController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const id = httpRequest.params.id;
-      const properties = await this.loadProperties.load(id);
-      return properties ? ok(properties) : notFound();
+      const property = await this.loadProperties.load(id);
+      return property ? ok(property) : notFound();
     } catch (error) {
       return serverError(error);
     }
