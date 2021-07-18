@@ -35,14 +35,12 @@ const makeFakeProperty = (): PropertyModel => {
   };
 };
 
-const makeFakeRequest = (): HttpRequest => {
+const makeFakeResponse = (): HttpRequest => {
   return {
-    params: {
-      id: 'any_id',
-    },
     body: {
+      _id: 'any_id',
       publication_date: new Date(),
-      title: 'any_title',
+      title: 'new_title',
       description: 'any_description',
       value: 'any_value',
       area: 'any_area',
@@ -150,5 +148,17 @@ describe('LoadProperty Controller', () => {
     const httpRequest = makeFakeWorngRequest();
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(WorngFieldsRequest(['descriptionnn']));
+  });
+
+  test('Should return 200 on success', async () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      params: { id: 'any_id' },
+      body: {
+        title: 'new_title',
+      },
+    };
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(ok(httpResponse.body));
   });
 });
