@@ -42,4 +42,24 @@ describe('Properties Routes', () => {
         .expect(204);
     });
   });
+
+  describe('GET /properties', () => {
+    test('Should return 200 on load properties success', async () => {
+      await propertyCollection.insertOne({
+        title: 'Meu titulo',
+        description: 'Minha descrição',
+        value: 400000,
+        area: '200m',
+        address: 'Rua tal',
+        public_place: 'Logradouro tal',
+        number: '01',
+        adjunct: 'Frente',
+        neighborhood: 'Bairro tal',
+        zip_code: '00000000',
+        city: 'Cidade tal',
+        state: 'Estado tal',
+      });
+      await request(app).get('/api/properties').expect(200);
+    });
+  });
 });
