@@ -1,4 +1,4 @@
-import { AddPropertyRepository } from '../../../../data/protocols/db/property/add-property-repository';
+import { AddPropertyRepository } from '../../../../dataLayer/protocols/db/property/add-property-repository';
 import { AddPropertyModel } from '../../../../domain/usecases/add-property';
 import { MongoHelper } from '../helpers/mongo-helper';
 
