@@ -1,6 +1,6 @@
 import { MongoHelper } from '../helpers/mongo-helper';
 import { PropertyMongoRepository } from './property-mongo-repository';
-import { Collection, ObjectId } from 'mongodb';
+import { Collection } from 'mongodb';
 import { AddPropertyModel } from '../../../../domain/usecases/add-property';
 
 let propertyCollection: Collection;
@@ -103,6 +103,35 @@ describe('Property Mongo Repository', () => {
       const sut = makeSut();
       const property = await sut.loadOne(res.ops[0]._id);
       expect(property._id).toEqual(res.ops[0]._id);
+    });
+  });
+
+  describe('Update()', () => {
+    test('Should Update the property finded by ID on success', async () => {
+      const res = await propertyCollection.insertOne({
+        publication_date: new Date(),
+        title: 'any_title',
+        description: 'any_description',
+        value: 0,
+        area: 'any_area',
+        address: 'any_address',
+        public_place: 'any_public_place',
+        number: 'any_number',
+        adjunct: 'any_adjunct',
+        neighborhood: 'any_neighborhood',
+        zip_code: 'any_zip_code',
+        city: 'any_city',
+        state: 'any_state',
+      });
+
+      const data = {
+        id: res.ops[0]._id,
+        body: { city: 'other_city' },
+      };
+
+      const sut = makeSut();
+      const property = await sut.update(data);
+      expect(property.city).toEqual('other_city');
     });
   });
 });
