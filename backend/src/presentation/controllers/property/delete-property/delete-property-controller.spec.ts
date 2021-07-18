@@ -73,4 +73,14 @@ describe('DeleteProperty Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(badRequest(new MissingParamError('id')));
   });
+
+  test('Should return 500 if DeleteProperty throws', async () => {
+    const { sut, deletePropertyStub } = makeSut();
+    jest
+      .spyOn(deletePropertyStub, 'delete')
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
+
+    const httpResponse = await sut.handle({});
+    expect(httpResponse).toEqual(serverError(new Error()));
+  });
 });
