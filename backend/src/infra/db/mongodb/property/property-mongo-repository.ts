@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import { AddPropertyRepository } from '../../../../dataLayer/protocols/db/property/add-property-repository';
 import { LoadPropertiesRepository } from '../../../../dataLayer/protocols/db/property/load-properties-repository';
 import { LoadPropertyRepository } from '../../../../dataLayer/protocols/db/property/load-property-repository';
@@ -24,7 +25,10 @@ export class PropertyMongoRepository
 
   async loadOne(id: string): Promise<PropertyModel> {
     const propertyCollection = await MongoHelper.getCollection('properties');
-    const property = propertyCollection.findOne({ _id: id });
+    const newId = new ObjectId(id);
+    const property = await propertyCollection.findOne({
+      _id: newId,
+    });
     return property;
   }
 }
