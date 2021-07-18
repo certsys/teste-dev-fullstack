@@ -1,5 +1,5 @@
 export interface PropertyModel {
-  id: string;
+  _id: string;
   publication_date: Date;
   title: string;
   description: string;
