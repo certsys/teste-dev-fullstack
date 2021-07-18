@@ -39,16 +39,32 @@ const makeFakeProperties = (): PropertyModel[] => {
   ];
 };
 
+interface SutTypes {
+  sut: DbLoadProperties;
+  loadPropertiesRepositoryStub: LoadPropertiesRepository;
+}
+const makeLoadPropertiesRepository = (): LoadPropertiesRepository => {
+  class LoadPropertiesRepositoryStub implements LoadPropertiesRepository {
+    async loadAll(): Promise<PropertyModel[]> {
+      return new Promise(resolve => resolve(makeFakeProperties()));
+    }
+  }
+  return new LoadPropertiesRepositoryStub();
+};
+
+const makeSut = (): SutTypes => {
+  const loadPropertiesRepositoryStub = makeLoadPropertiesRepository();
+  const sut = new DbLoadProperties(loadPropertiesRepositoryStub);
+  return {
+    sut,
+    loadPropertiesRepositoryStub,
+  };
+};
+
 describe('DbLoadProperties', () => {
   test('Should call LoadPropertiesRepository', async () => {
-    class LoadPropertiesRepositoryStub implements LoadPropertiesRepository {
-      async loadAll(): Promise<PropertyModel[]> {
-        return new Promise(resolve => resolve(makeFakeProperties()));
-      }
-    }
-    const loadPropertiesRepositoryStub = new LoadPropertiesRepositoryStub();
+    const { sut, loadPropertiesRepositoryStub } = makeSut();
     const loadAllSpy = jest.spyOn(loadPropertiesRepositoryStub, 'loadAll');
-    const sut = new DbLoadProperties(loadPropertiesRepositoryStub);
     await sut.load();
     expect(loadAllSpy).toHaveBeenCalled();
   });
