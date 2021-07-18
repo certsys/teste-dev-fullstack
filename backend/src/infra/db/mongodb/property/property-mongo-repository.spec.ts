@@ -1,6 +1,6 @@
 import { MongoHelper } from '../helpers/mongo-helper';
 import { PropertyMongoRepository } from './property-mongo-repository';
-import { Collection } from 'mongodb';
+import { Collection, ObjectId } from 'mongodb';
 import { AddPropertyModel } from '../../../../domain/usecases/add-property';
 
 let propertyCollection: Collection;
@@ -85,8 +85,7 @@ describe('Property Mongo Repository', () => {
 
   describe('loadOne()', () => {
     test('Should load the property finded by ID on success', async () => {
-      await propertyCollection.insertOne({
-        _id: 'any_id',
+      const res = await propertyCollection.insertOne({
         publication_date: new Date(),
         title: 'any_title',
         description: 'any_description',
@@ -102,8 +101,8 @@ describe('Property Mongo Repository', () => {
         state: 'any_state',
       });
       const sut = makeSut();
-      const property = await sut.loadOne('any_id');
-      expect(property._id).toBe('any_id');
+      const property = await sut.loadOne(res.ops[0]._id);
+      expect(property._id).toEqual(res.ops[0]._id);
     });
   });
 });
