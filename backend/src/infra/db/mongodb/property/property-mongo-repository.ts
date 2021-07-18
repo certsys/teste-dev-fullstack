@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { AddPropertyRepository } from '../../../../dataLayer/protocols/db/property/add-property-repository';
+import { DeletePropertyRepository } from '../../../../dataLayer/protocols/db/property/delete-property-repository';
 import { LoadPropertiesRepository } from '../../../../dataLayer/protocols/db/property/load-properties-repository';
 import { LoadPropertyRepository } from '../../../../dataLayer/protocols/db/property/load-property-repository';
 import { UpdatePropertyRepository } from '../../../../dataLayer/protocols/db/property/update-property-repository';
@@ -12,7 +13,8 @@ export class PropertyMongoRepository
     AddPropertyRepository,
     LoadPropertiesRepository,
     LoadPropertyRepository,
-    UpdatePropertyRepository
+    UpdatePropertyRepository,
+    DeletePropertyRepository
 {
   async add(propertyData: AddPropertyModel): Promise<void> {
     const propertyCollection = await MongoHelper.getCollection('properties');
@@ -38,7 +40,6 @@ export class PropertyMongoRepository
     const propertyCollection = await MongoHelper.getCollection('properties');
 
     const newId = new ObjectId(updateData.id);
-    // console.log(newId);
     const body = updateData.body;
     const property = await propertyCollection.findOneAndUpdate(
       { _id: newId },
@@ -46,5 +47,11 @@ export class PropertyMongoRepository
       { returnOriginal: false },
     );
     return property.value;
+  }
+
+  async delete(id: string): Promise<void> {
+    const propertyCollection = await MongoHelper.getCollection('properties');
+    const newId = new ObjectId(id);
+    await propertyCollection.remove({ _id: newId });
   }
 }
