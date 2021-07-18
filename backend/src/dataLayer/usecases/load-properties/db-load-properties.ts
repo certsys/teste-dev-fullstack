@@ -7,7 +7,7 @@ export class DbLoadProperties implements LoadProperties {
     private readonly loadPropertiesRepository: LoadPropertiesRepository,
   ) {}
   async load(): Promise<PropertyModel[]> {
-    await this.loadPropertiesRepository.loadAll();
-    return [];
+    const propeties = await this.loadPropertiesRepository.loadAll();
+    return propeties;
   }
 }
