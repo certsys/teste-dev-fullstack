@@ -12,8 +12,7 @@ export class DeletePropertyController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const id = httpRequest.params.id;
-      if (!id) {
-        console.log(httpRequest.params);
+      if (!id || Object.keys(id).length === 0) {
         return badRequest(new MissingParamError('id'));
       }
       await this.deleteProperty.delete(id);
