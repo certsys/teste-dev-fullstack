@@ -21,6 +21,10 @@ const makePropertyData = (): AddPropertyModel => ({
   state: 'any_state',
 });
 
+const makeSut = (): PropertyMongoRepository => {
+  return new PropertyMongoRepository();
+};
+
 describe('Property Mongo Repository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL);
@@ -35,15 +39,13 @@ describe('Property Mongo Repository', () => {
     await propertyCollection.deleteMany({});
   });
 
-  const makeSut = (): PropertyMongoRepository => {
-    return new PropertyMongoRepository();
-  };
-
-  test('Should add a property on success', async () => {
-    const sut = makeSut();
-    const propertyData = makePropertyData();
-    await sut.add(propertyData);
-    const property = await propertyCollection.findOne({ title: 'any_title' });
-    expect(property).toBeTruthy();
+  describe('add()', () => {
+    test('Should add a property on success', async () => {
+      const sut = makeSut();
+      const propertyData = makePropertyData();
+      await sut.add(propertyData);
+      const property = await propertyCollection.findOne({ title: 'any_title' });
+      expect(property).toBeTruthy();
+    });
   });
 });
