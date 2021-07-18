@@ -68,4 +68,10 @@ describe('DbLoadProperties', () => {
     await sut.load();
     expect(loadAllSpy).toHaveBeenCalled();
   });
+
+  test('Should return a list of Properties on success', async () => {
+    const { sut } = makeSut();
+    const properties = await sut.load();
+    expect(properties).toEqual(makeFakeProperties());
+  });
 });
