@@ -6,11 +6,7 @@ import {
 } from './add-property-controller-protocols';
 
 import AddPropertyController from './add-property-controller';
-import {
-  badRequest,
-  noContent,
-  serverError,
-} from '../../../helpers/http-helper';
+import { badRequest, noContent, serverError } from '../../../helpers/http-helper';
 
 import MockDate from 'mockdate';
 
@@ -107,9 +103,7 @@ describe('AddProperty Controller', () => {
     const { sut, addPropertyStub } = makeSut();
     jest
       .spyOn(addPropertyStub, 'add')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
 
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
