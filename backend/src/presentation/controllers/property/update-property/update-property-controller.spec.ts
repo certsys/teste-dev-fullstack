@@ -174,7 +174,7 @@ describe('LoadProperty Controller', () => {
     expect(httpResponse).toEqual(notFound());
   });
 
-  test('Should return 500 if LoadProperty throws', async () => {
+  test('Should return 500 if UpdateProperty throws', async () => {
     const { sut, updatePropertyStub } = makeSut();
     jest
       .spyOn(updatePropertyStub, 'update')
