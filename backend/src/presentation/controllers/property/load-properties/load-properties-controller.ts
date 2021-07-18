@@ -10,7 +10,6 @@ export class LoadPropertiesController implements Controller {
   constructor(private readonly loadProperties: LoadProperties) {}
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      console.log(httpRequest.query);
       const properties = await this.loadProperties.load(httpRequest.query);
       return properties.length ? ok(properties) : noContent();
     } catch (error) {
