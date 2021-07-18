@@ -1,6 +1,4 @@
-import { PropertyModel } from '../../../domain/models/property';
-import { LoadProperty } from '../../../domain/usecases/load-property';
-import { LoadPropertyRepository } from '../../protocols/db/property/load-property-repository';
+import { LoadProperty, LoadPropertyRepository, PropertyModel } from './db-load-property-protocols';
 
 export class DbLoadProperty implements LoadProperty {
   constructor(private readonly loadPropertyRepository: LoadPropertyRepository) {}

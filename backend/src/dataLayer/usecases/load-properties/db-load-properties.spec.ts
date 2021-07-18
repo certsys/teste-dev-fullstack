@@ -1,5 +1,4 @@
-import { PropertyModel } from '../../../domain/models/property';
-import { LoadPropertiesRepository } from '../../protocols/db/property/load-properties-repository';
+import { LoadPropertiesRepository, PropertyModel } from './db-add-properties-protocols';
 import { DbLoadProperties } from './db-load-properties';
 
 const makeFakeProperties = (): PropertyModel[] => {

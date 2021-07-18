@@ -1,8 +1,5 @@
 import { DbAddProperty } from './db-add-property';
-import {
-  AddPropertyModel,
-  AddPropertyRepository,
-} from './db-add-property-protocols';
+import { AddPropertyModel, AddPropertyRepository } from './db-add-property-protocols';
 
 import MockDate from 'mockdate';
 
@@ -66,9 +63,7 @@ describe('DbAddProperty UseCase', () => {
     const { sut, addPropertyRepositoryStub } = makeSut();
     jest
       .spyOn(addPropertyRepositoryStub, 'add')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
     const promise = sut.add(makePropertyData());
     await expect(promise).rejects.toThrow();
   });

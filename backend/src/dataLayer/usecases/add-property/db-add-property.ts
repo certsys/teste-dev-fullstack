@@ -1,8 +1,4 @@
-import {
-  AddProperty,
-  AddPropertyModel,
-  AddPropertyRepository,
-} from './db-add-property-protocols';
+import { AddProperty, AddPropertyModel, AddPropertyRepository } from './db-add-property-protocols';
 
 export class DbAddProperty implements AddProperty {
   constructor(private readonly addPropertyRepository: AddPropertyRepository) {}

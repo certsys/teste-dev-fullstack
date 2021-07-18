@@ -1,6 +1,5 @@
-import { PropertyModel } from '../../../domain/models/property';
-import { LoadPropertyRepository } from '../../protocols/db/property/load-property-repository';
 import { DbLoadProperty } from './db-load-property';
+import { LoadPropertyRepository, PropertyModel } from './db-load-property-protocols';
 
 const makeFakeProperty = (): PropertyModel => {
   return {
@@ -62,9 +61,7 @@ describe('DbLoadProperty', () => {
     const { sut, loadPropertyRepositoryStub } = makeSut();
     jest
       .spyOn(loadPropertyRepositoryStub, 'loadOne')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
     const promise = sut.load('any_id');
     await expect(promise).rejects.toThrow();
   });
