@@ -173,4 +173,16 @@ describe('LoadProperty Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(notFound());
   });
+
+  test('Should return 500 if LoadProperty throws', async () => {
+    const { sut, updatePropertyStub } = makeSut();
+    jest
+      .spyOn(updatePropertyStub, 'update')
+      .mockReturnValueOnce(
+        new Promise((resolve, reject) => reject(new Error())),
+      );
+
+    const httpResponse = await sut.handle({});
+    expect(httpResponse).toEqual(serverError(new Error()));
+  });
 });
