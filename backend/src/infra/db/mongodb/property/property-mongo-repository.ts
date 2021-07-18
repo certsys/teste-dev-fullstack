@@ -12,11 +12,9 @@ export class PropertyMongoRepository
     await propertyCollection.insertOne(propertyData);
   }
 
-  async loadAll(): Promise<PropertyModel[]> {
+  async loadAll(query?: any): Promise<PropertyModel[]> {
     const propertyCollection = await MongoHelper.getCollection('properties');
-    const properties: PropertyModel[] = await propertyCollection
-      .find()
-      .toArray();
+    const properties = propertyCollection.find().toArray();
     return properties;
   }
 }

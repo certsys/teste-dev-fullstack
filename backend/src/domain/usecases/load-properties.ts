@@ -1,5 +1,5 @@
 import { PropertyModel } from '../models/property';
 
 export interface LoadProperties {
-  load(): Promise<PropertyModel[]>;
+  load(query?: any): Promise<PropertyModel[]>;
 }
