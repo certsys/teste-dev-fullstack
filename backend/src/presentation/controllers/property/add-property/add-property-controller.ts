@@ -1,8 +1,4 @@
-import {
-  badRequest,
-  noContent,
-  serverError,
-} from '../../../helpers/http-helper';
+import { badRequest, noContent, serverError } from '../../../helpers/http-helper';
 import {
   AddProperty,
   Controller,
@@ -12,10 +8,7 @@ import {
 } from './add-property-controller-protocols';
 
 export default class AddPropertyController implements Controller {
-  constructor(
-    private readonly validation: Validation,
-    private readonly addProperty: AddProperty,
-  ) {}
+  constructor(private readonly validation: Validation, private readonly addProperty: AddProperty) {}
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const body = { ...httpRequest.body, publication_date: new Date() };

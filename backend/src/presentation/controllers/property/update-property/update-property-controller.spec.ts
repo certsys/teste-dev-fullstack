@@ -6,12 +6,7 @@ import {
 } from './update-property-controller-protocols';
 
 import MockDate from 'mockdate';
-import {
-  notFound,
-  ok,
-  serverError,
-  WorngFieldsRequest,
-} from '../../../helpers/http-helper';
+import { notFound, ok, serverError, WorngFieldsRequest } from '../../../helpers/http-helper';
 import { UpdatePropertyController } from './update-property-controller';
 import { VerifyFields } from '../../../protocols/verify-fields';
 import { WrongParamError } from '../../../errors/wrong-param-error';
@@ -77,9 +72,7 @@ interface SutTypes {
 
 const makeUpdateProperty = (): UpdateProperty => {
   class UpdatePropertyStub implements UpdateProperty {
-    async update(
-      updateData: UpdatePropertyModel,
-    ): Promise<PropertyModel | null> {
+    async update(updateData: UpdatePropertyModel): Promise<PropertyModel | null> {
       return new Promise(resolve => resolve(makeFakeProperty()));
     }
   }
@@ -178,9 +171,7 @@ describe('LoadProperty Controller', () => {
     const { sut, updatePropertyStub } = makeSut();
     jest
       .spyOn(updatePropertyStub, 'update')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
 
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(serverError(new Error()));

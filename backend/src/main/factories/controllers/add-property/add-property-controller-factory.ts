@@ -5,9 +5,6 @@ import { makeDbAddProperty } from '../../usecases/add-property/db-add-property-f
 import { makeAddPropertyValidation } from './add-property-validation-factory';
 
 export const makeAddPropertyController = (): Controller => {
-  const controller = new AddPropertyController(
-    makeAddPropertyValidation(),
-    makeDbAddProperty(),
-  );
+  const controller = new AddPropertyController(makeAddPropertyValidation(), makeDbAddProperty());
   return makeLogControllerDecorator(controller);
 };

@@ -34,7 +34,7 @@ export class PropertyMongoRepository
     return property;
   }
 
-  async update(updateData: UpdatePropertyModel): Promise<any | null> {
+  async update(updateData: UpdatePropertyModel): Promise<PropertyModel | null> {
     const propertyCollection = await MongoHelper.getCollection('properties');
 
     const newId = new ObjectId(updateData.id);
@@ -42,7 +42,7 @@ export class PropertyMongoRepository
     const body = updateData.body;
     const property = await propertyCollection.findOneAndUpdate(
       { _id: newId },
-      { $set: { ...body } },
+      { $set: { ...body, publication_date: new Date() } },
       { returnOriginal: false },
     );
     return property.value;
