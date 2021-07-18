@@ -105,4 +105,26 @@ describe('DbUpdateProperty', () => {
     const property = await sut.update(data);
     expect(property._id).toEqual('any_id');
   });
+
+  test('Should throw if UpdatePropertyRepository throws', async () => {
+    const { sut, updatePropertyRepositoryStub } = makeSut();
+    jest
+      .spyOn(updatePropertyRepositoryStub, 'update')
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
+    const httpRequest = {
+      params: {
+        id: 'any_id',
+      },
+      body: {
+        title: 'new_title',
+        description: 'new_description',
+      },
+    };
+    const data = {
+      id: httpRequest.params.id,
+      body: httpRequest.body,
+    };
+    const promise = sut.update(data);
+    await expect(promise).rejects.toThrow();
+  });
 });
