@@ -26,7 +26,7 @@ interface SutTypes {
 }
 const makeLoadPropertyRepository = (): LoadPropertyRepository => {
   class LoadPropertyRepositoryStub implements LoadPropertyRepository {
-    async loadOne(query?: any): Promise<PropertyModel> {
+    async loadOne(id: string): Promise<PropertyModel> {
       return new Promise(resolve => resolve(makeFakeProperty()));
     }
   }
