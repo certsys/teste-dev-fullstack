@@ -57,4 +57,15 @@ describe('DbLoadProperty', () => {
     const property = await sut.load('any_id');
     expect(property.id).toEqual('any_id');
   });
+
+  test('Should throw if LoadPropertyRepository throws', async () => {
+    const { sut, loadPropertyRepositoryStub } = makeSut();
+    jest
+      .spyOn(loadPropertyRepositoryStub, 'loadOne')
+      .mockReturnValueOnce(
+        new Promise((resolve, reject) => reject(new Error())),
+      );
+    const promise = sut.load('any_id');
+    await expect(promise).rejects.toThrow();
+  });
 });
