@@ -71,7 +71,7 @@ describe('DbLoadProperties', () => {
 
   test('Should return a list of Properties on success', async () => {
     const { sut } = makeSut();
-    const properties = await sut.load();
+    const properties = await sut.load('');
     expect(properties).toEqual(makeFakeProperties());
   });
 

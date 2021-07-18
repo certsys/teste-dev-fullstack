@@ -51,4 +51,10 @@ describe('DbLoadProperty', () => {
     await sut.load('any_id');
     expect(loadAllSpy).toHaveBeenCalled();
   });
+
+  test('Should return a Property on success', async () => {
+    const { sut } = makeSut();
+    const property = await sut.load('any_id');
+    expect(property.id).toEqual('any_id');
+  });
 });
