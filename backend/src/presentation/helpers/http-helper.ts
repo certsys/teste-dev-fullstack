@@ -8,6 +8,13 @@ export const badRequest = (error: Error): HttpResponse => {
   };
 };
 
+export const WorngFieldsRequest = (errors: string[]): HttpResponse => {
+  return {
+    statusCode: 400,
+    body: errors.join(' '),
+  };
+};
+
 export const serverError = (error: Error): HttpResponse => ({
   statusCode: 500,
   body: new ServerError(error.stack),
@@ -15,6 +22,11 @@ export const serverError = (error: Error): HttpResponse => ({
 
 export const ok = (data: any): HttpResponse => ({
   statusCode: 200,
+  body: data,
+});
+
+export const created = (data: any): HttpResponse => ({
+  statusCode: 201,
   body: data,
 });
 
