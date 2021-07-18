@@ -86,4 +86,23 @@ describe('DbUpdateProperty', () => {
     await sut.update(data);
     expect(updateSpy).toHaveBeenCalled();
   });
+
+  test('Should return a Property on success', async () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      params: {
+        id: 'any_id',
+      },
+      body: {
+        title: 'new_title',
+        description: 'new_description',
+      },
+    };
+    const data = {
+      id: httpRequest.params.id,
+      body: httpRequest.body,
+    };
+    const property = await sut.update(data);
+    expect(property._id).toEqual('any_id');
+  });
 });

@@ -79,9 +79,7 @@ describe('DbLoadProperties', () => {
     const { sut, loadPropertiesRepositoryStub } = makeSut();
     jest
       .spyOn(loadPropertiesRepositoryStub, 'loadAll')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
     const promise = sut.load();
     await expect(promise).rejects.toThrow();
   });
