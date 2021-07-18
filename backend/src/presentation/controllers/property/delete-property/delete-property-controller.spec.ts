@@ -1,8 +1,9 @@
 import { DeleteProperty, PropertyModel } from './delete-property-controller-protocols';
 
 import MockDate from 'mockdate';
-import { noContent, notFound, ok, serverError } from '../../../helpers/http-helper';
+import { badRequest, noContent, notFound, ok, serverError } from '../../../helpers/http-helper';
 import { DeletePropertyController } from './delete-property-controller';
+import { MissingParamError } from '../../../errors/missing-param-error';
 
 const makeFakeProperty = (): PropertyModel => {
   return {
@@ -62,5 +63,14 @@ describe('DeleteProperty Controller', () => {
     };
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(noContent());
+  });
+
+  test('Should return 400 if ID is undefined', async () => {
+    const { sut, deletePropertyStub } = makeSut();
+    const httpRequest = {
+      params: { id: {} },
+    };
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(badRequest(new MissingParamError('id')));
   });
 });
