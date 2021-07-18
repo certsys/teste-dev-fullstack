@@ -134,4 +134,29 @@ describe('Property Mongo Repository', () => {
       expect(property.city).toEqual('other_city');
     });
   });
+
+  describe('Delete()', () => {
+    test('Should Delete the property finded by ID on success', async () => {
+      const res = await propertyCollection.insertOne({
+        publication_date: new Date(),
+        title: 'any_title',
+        description: 'any_description',
+        value: 0,
+        area: 'any_area',
+        address: 'any_address',
+        public_place: 'any_public_place',
+        number: 'any_number',
+        adjunct: 'any_adjunct',
+        neighborhood: 'any_neighborhood',
+        zip_code: 'any_zip_code',
+        city: 'any_city',
+        state: 'any_state',
+      });
+
+      const sut = makeSut();
+      await sut.delete(res.ops[0]._id);
+      const property = await sut.loadOne(res.ops[0]._id);
+      expect(property).toEqual(null);
+    });
+  });
 });
