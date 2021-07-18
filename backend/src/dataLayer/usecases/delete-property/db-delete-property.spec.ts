@@ -50,4 +50,13 @@ describe('DbDeleteProperty', () => {
     await sut.delete('any_id');
     expect(deleteAllSpy).toHaveBeenCalled();
   });
+
+  test('Should throw if DeletePropertyRepository throws', async () => {
+    const { sut, deletePropertyRepositoryStub } = makeSut();
+    jest
+      .spyOn(deletePropertyRepositoryStub, 'delete')
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
+    const promise = sut.delete('any_id');
+    await expect(promise).rejects.toThrow();
+  });
 });
