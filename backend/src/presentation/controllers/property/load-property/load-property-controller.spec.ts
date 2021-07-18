@@ -14,7 +14,7 @@ import { LoadPropertyController } from './load-property-controller';
 
 const makeFakeProperty = (): PropertyModel => {
   return {
-    id: 'any_id',
+    _id: 'any_id',
     publication_date: new Date(),
     title: 'any_title',
     description: 'any_description',

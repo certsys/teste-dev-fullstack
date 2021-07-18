@@ -4,7 +4,7 @@ import { DbLoadProperty } from './db-load-property';
 
 const makeFakeProperty = (): PropertyModel => {
   return {
-    id: 'any_id',
+    _id: 'any_id',
     publication_date: new Date(),
     title: 'any_title',
     description: 'any_description',
@@ -55,7 +55,7 @@ describe('DbLoadProperty', () => {
   test('Should return a Property on success', async () => {
     const { sut } = makeSut();
     const property = await sut.load('any_id');
-    expect(property.id).toEqual('any_id');
+    expect(property._id).toEqual('any_id');
   });
 
   test('Should throw if LoadPropertyRepository throws', async () => {

@@ -10,7 +10,7 @@ import { noContent, ok, serverError } from '../../../helpers/http-helper';
 const makeFakeProperties = (): PropertyModel[] => {
   return [
     {
-      id: 'any_id',
+      _id: 'any_id',
       publication_date: new Date(),
       title: 'any_title',
       description: 'any_description',
@@ -26,7 +26,7 @@ const makeFakeProperties = (): PropertyModel[] => {
       state: 'any_state',
     },
     {
-      id: 'other_id',
+      _id: 'other_id',
       publication_date: new Date(),
       title: 'other_title',
       description: 'other_description',

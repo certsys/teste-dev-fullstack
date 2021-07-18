@@ -82,4 +82,28 @@ describe('Property Mongo Repository', () => {
       expect(properties.length).toBe(0);
     });
   });
+
+  describe('loadOne()', () => {
+    test('Should load the property finded by ID on success', async () => {
+      await propertyCollection.insertOne({
+        _id: 'any_id',
+        publication_date: new Date(),
+        title: 'any_title',
+        description: 'any_description',
+        value: 0,
+        area: 'any_area',
+        address: 'any_address',
+        public_place: 'any_public_place',
+        number: 'any_number',
+        adjunct: 'any_adjunct',
+        neighborhood: 'any_neighborhood',
+        zip_code: 'any_zip_code',
+        city: 'any_city',
+        state: 'any_state',
+      });
+      const sut = makeSut();
+      const property = await sut.loadOne('any_id');
+      expect(property._id).toBe('any_id');
+    });
+  });
 });
