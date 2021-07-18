@@ -161,4 +161,16 @@ describe('LoadProperty Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(ok(httpResponse.body));
   });
+
+  test('Should return 404 if any property is not found', async () => {
+    const { sut, updatePropertyStub } = makeSut();
+    jest
+      .spyOn(updatePropertyStub, 'update')
+      .mockReturnValueOnce(new Promise(resolve => resolve(null)));
+    const httpRequest = {
+      params: 'worng_id',
+    };
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(notFound());
+  });
 });
