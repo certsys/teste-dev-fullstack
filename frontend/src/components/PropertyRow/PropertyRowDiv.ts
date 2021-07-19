@@ -50,6 +50,7 @@ export const PropertyRowDiv = styled.div`
   }
 
   .main-content {
+    width: 100%;
     margin-botton: 10px;
 
     .location {
@@ -65,6 +66,7 @@ export const PropertyRowDiv = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
+        max-width: 250px;
         .price {
           margin: 8px 0;
           span {
@@ -75,6 +77,7 @@ export const PropertyRowDiv = styled.div`
 
         .area {
           display: flex;
+          justify-content: flex-end;
           width: 80px;
         }
       }
