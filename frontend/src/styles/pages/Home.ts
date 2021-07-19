@@ -26,7 +26,7 @@ export const HomeSection = styled.section`
   .table-body {
     flex-direction: column;
     margin-top: 2px;
-    max-height: 65vh;
+    height: 68vh;
     overflow: auto;
 
     .table-add-row {
