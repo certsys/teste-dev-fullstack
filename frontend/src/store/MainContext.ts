@@ -8,8 +8,8 @@ type TIsEditingProperty = {
 
 type data = {
   showAddProperty: boolean;
-  isEditingProperty: UpdatePropertyModel;
-  newPropertyValue: string;
+  isEditingProperty: string;
+  newPropertyValue: UpdatePropertyModel;
   quantProperty: number;
 };
 
@@ -24,7 +24,18 @@ export const data = {
     idEditing: '',
     isEditing: false,
   },
-  newPropertyValue: '',
+  title: '',
+  description: '',
+  value: '',
+  area: '',
+  address: '',
+  public_place: '',
+  number: '',
+  adjunct: '',
+  neighborhood: '',
+  zip_code: '',
+  city: '',
+  state: '',
   quantProperty: 0,
 };
 

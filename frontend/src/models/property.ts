@@ -16,8 +16,15 @@ export interface PropertyModel {
 }
 
 export interface PropertyPropModel {
-  key: string;
+  key?: string;
   property: PropertyModel;
+  field?: string;
+}
+
+export interface PropertyAddModel {
+  key?: string;
+  field: string;
+  type?: string;
 }
 
 export interface UpdatePropertyModel {

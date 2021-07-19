@@ -71,7 +71,7 @@ export const NewPropertyDiv = styled.div`
     width: 100%;
 
     .location {
-      .address {
+      .address-all {
         display: flex;
         flex-wrap: wrap;
       }
