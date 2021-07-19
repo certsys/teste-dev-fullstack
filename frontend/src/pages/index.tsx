@@ -11,6 +11,8 @@ const Home = (): JSX.Element => {
   const [state, setState] = useState(data);
   const [properties, setProperties] = useState<PropertyModel[]>([]);
 
+  const showAddProperty = state.showAddProperty;
+
   useEffect(() => {
     fetch(`http://localhost:5050/api/properties`)
       .then(res => res.json())
@@ -35,15 +37,23 @@ const Home = (): JSX.Element => {
           </div>
 
           <div className="table-body">
-            <div className="table-add-row">{/* <NewProperty /> */}</div>
-            {properties.map(property => {
-              return (
-                <PropertyRow
-                  key={property._id}
-                  property={property}
-                ></PropertyRow>
-              );
-            })}
+            <div className="table-add-row">
+              {showAddProperty ? <NewProperty /> : <></>}
+            </div>
+            {showAddProperty ? (
+              <></>
+            ) : (
+              <>
+                {properties.map(property => {
+                  return (
+                    <PropertyRow
+                      key={property._id}
+                      property={property}
+                    ></PropertyRow>
+                  );
+                })}
+              </>
+            )}
           </div>
         </div>
       </HomeSection>

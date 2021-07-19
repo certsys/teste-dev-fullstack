@@ -1,16 +1,16 @@
 import React from 'react';
+import { UpdatePropertyModel } from '../models/property';
 
-type TIsEditingTask = {
+type TIsEditingProperty = {
   id: string;
   isEditing: boolean;
 };
 
 type data = {
-  showAddTask: boolean;
-  isEditingTask: TIsEditingTask;
-  newTaskValue: string;
-  searchTerm: string;
-  quantTask: number;
+  showAddProperty: boolean;
+  isEditingProperty: UpdatePropertyModel;
+  newPropertyValue: string;
+  quantProperty: number;
 };
 
 export interface IMainContext {
@@ -19,8 +19,8 @@ export interface IMainContext {
 }
 
 export const data = {
-  showAddTask: false,
-  isEditingTask: {
+  showAddProperty: false,
+  isEditingProperty: {
     idEditing: '',
     isEditing: false,
   },

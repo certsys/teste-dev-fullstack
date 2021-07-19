@@ -17,7 +17,7 @@ const NewProperty = (): JSX.Element => {
         <div className="property-buttons">
           <CheckButton />
 
-          <DeleteButton />
+          <DeleteButton to="cancel" />
         </div>
       </div>
       <div className="main-content">
