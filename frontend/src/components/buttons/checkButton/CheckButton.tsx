@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 
 import { BsCheckBox } from 'react-icons/bs';
 import { returnFieldsEmpty } from '../../../helpers/check-fields-helper';
+import { viaCep } from '../../../helpers/viaCEP-helper';
 import { TCheckAddButton } from '../../../models/types';
 import MainContext from '../../../store/MainContext';
 import { CheckButtonButton } from './CheckButtonButton';
@@ -113,14 +114,22 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
         alert(`Opss.. campo vazio!`);
         return;
       }
-      addProperty();
+
+      viaCep(context?.state.zip_code).then(resp => {
+        if (!resp) return alert('CEP inválido!');
+        addProperty();
+      });
     }
     if (context.state.isEditingProperty) {
       if (returnFieldsEmpty(context?.state).length) {
         alert(`Opss.. campo vazio!`);
         return;
       }
-      editProperty();
+
+      viaCep(context?.state.zip_code).then(resp => {
+        if (!resp) return alert('CEP inválido!');
+        editProperty();
+      });
     }
   }
 
