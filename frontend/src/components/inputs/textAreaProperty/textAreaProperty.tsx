@@ -15,7 +15,10 @@ const TextAreaProperty = (props: PropertyAddModel): JSX.Element => {
 
   return (
     <TextAreaPropertyDiv className="property-text-area">
-      <textarea onChange={evt => changeValue(evt.target.value)} />
+      <textarea
+        value={props.value}
+        onChange={evt => changeValue(evt.target.value)}
+      />
     </TextAreaPropertyDiv>
   );
 };

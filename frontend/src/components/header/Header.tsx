@@ -15,7 +15,6 @@ const Header = (): JSX.Element => {
           </a>
         </div>
       </div>
-
       <Navigation />
     </HeaderDiv>
   );

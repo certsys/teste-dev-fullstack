@@ -23,21 +23,26 @@ export interface PropertyPropModel {
 
 export interface PropertyAddModel {
   key?: string;
+  id?: string;
   field: string;
+  value?: string;
   type?: string;
 }
 
 export interface UpdatePropertyModel {
-  title?: string;
-  description?: string;
-  value?: number;
-  area?: string;
-  address?: string;
-  public_place?: string;
-  number?: string;
-  adjunct?: string;
-  neighborhood?: string;
-  zip_code?: string;
-  city?: string;
-  state?: string;
+  property: {
+    _id: string;
+    title?: string;
+    description?: string;
+    value?: number;
+    area?: string;
+    address?: string;
+    public_place?: string;
+    number?: string;
+    adjunct?: string;
+    neighborhood?: string;
+    zip_code?: string;
+    city?: string;
+    state?: string;
+  };
 }

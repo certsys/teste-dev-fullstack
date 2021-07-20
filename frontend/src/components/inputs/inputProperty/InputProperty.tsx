@@ -16,6 +16,7 @@ const InputProperty = (props: PropertyAddModel): JSX.Element => {
   return (
     <InputPropertyDiv className="property-input">
       <input
+        value={props.value}
         type={props.type ? props.type : 'text'}
         onChange={evt => changeValue(evt.target.value)}
       />

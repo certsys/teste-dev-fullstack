@@ -71,15 +71,17 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
       state: context?.state.state,
     };
 
-    const id = props.id;
+    const id = context?.state.isEditingProperty.id;
 
     const requestOptions = {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(newProperty),
     };
 
-    fetch('http://localhost:5050/api/properties' + id, requestOptions)
+    fetch('http://localhost:5050/api/properties/' + id, requestOptions)
       .then(res => res.json())
       .then(() => {
         context.setState({
@@ -99,18 +101,19 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
           city: '',
           state: '',
         });
+        window.location.reload();
       });
   }
 
   function addOrEditProperty() {
-    if (props.to === 'add') {
+    if (!context.state.isEditingProperty) {
       if (returnFieldsEmpty(context?.state).length) {
         alert(`Opss.. campo vazio!`);
         return;
       }
       addProperty();
     }
-    if (props.to === 'edit') {
+    if (context.state.isEditingProperty) {
       if (returnFieldsEmpty(context?.state).length) {
         alert(`Opss.. campo vazio!`);
         return;

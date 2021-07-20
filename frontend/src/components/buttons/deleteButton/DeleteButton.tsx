@@ -32,6 +32,18 @@ const DeleteButton = (props: TCheckDelButton): JSX.Element => {
       ...context.state,
       isEditingProperty: false,
       showAddProperty: false,
+      title: '',
+      description: '',
+      value: '',
+      area: '',
+      address: '',
+      public_place: '',
+      number: '',
+      adjunct: '',
+      neighborhood: '',
+      zip_code: '',
+      city: '',
+      state: '',
     });
   }
 
