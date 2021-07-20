@@ -8,18 +8,16 @@ import MainContext, { data } from '../store/MainContext';
 import { HomeSection } from '../styles/pages/Home';
 import PropertyNotFound from '../components/sections/PropertyNotFound/PropertyNotFound';
 import PropertyRow from '../components/sections/PropertyRow/PropertyRow';
-import Pagination from '../components/pagination/Pagination';
 
 const Home = (): JSX.Element => {
   const [state, setState] = useState(data);
   const [properties, setProperties] = useState<PropertyModel[]>([]);
 
   const showAddProperty = state.showAddProperty;
+  const quantProperty = state.quantProperty;
 
   useEffect(() => {
-    fetch(
-      `http://localhost:5050/api/properties?limit=${state.limit}&page=${state.page}&search=${state.searchTerm}`,
-    )
+    fetch(`http://localhost:5050/api/properties?search=${state.searchTerm}`)
       .then(res => res.json())
       .then(data => {
         setState({
@@ -29,7 +27,10 @@ const Home = (): JSX.Element => {
         setProperties(data);
       })
       .catch(err => {
-        // console.log(err);
+        setState({
+          ...state,
+          quantProperty: 0,
+        });
       });
   }, [state.quantProperty, state.searchTerm]);
 
@@ -49,7 +50,7 @@ const Home = (): JSX.Element => {
             <div className="table-add-row">
               {showAddProperty ? <NewProperty /> : <></>}
             </div>
-            {showAddProperty ? (
+            {showAddProperty || quantProperty === 0 ? (
               <></>
             ) : (
               <>
@@ -63,9 +64,12 @@ const Home = (): JSX.Element => {
                 })}
               </>
             )}
-            {properties.length === 0 ? <PropertyNotFound /> : ''}
+            {properties.length === 0 || quantProperty === 0 ? (
+              <PropertyNotFound />
+            ) : (
+              ''
+            )}
           </div>
-          <Pagination quant={state.quantProperty} />
         </div>
       </HomeSection>
     </MainContext.Provider>

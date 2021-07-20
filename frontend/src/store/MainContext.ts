@@ -23,6 +23,7 @@ export const data = {
   searchTerm: '',
   limit: 3,
   page: 1,
+  quantPage: 3,
   isEditingProperty: {
     idEditing: '',
     isEditing: false,
