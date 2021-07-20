@@ -22,8 +22,14 @@ export class PropertyMongoRepository
   }
 
   async loadAll(query?: any): Promise<PropertyModel[]> {
+    const page = query.page * 1 || 1;
+    const limit = query.limit * 1 || 100;
+    const skip = (page - 1) * limit;
+
+    const search = query.search ? { title: { $regex: query.search } } : {};
+
     const propertyCollection = await MongoHelper.getCollection('properties');
-    const properties = propertyCollection.find().toArray();
+    const properties = propertyCollection.find(search).skip(skip).limit(limit).toArray();
     return properties;
   }
 

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import AddPropertyButton from '../components/buttons/addPropertyButton/AddPropertyButton';
-import NewProperty from '../components/newProperty/NewProperty';
-import PropertyRow from '../components/PropertyRow/PropertyRow';
+import InputSearchProperty from '../components/inputs/seachProperty/inputSearchProperty';
+import NewProperty from '../components/sections/newProperty/NewProperty';
 import { PropertyModel } from '../models/property';
 import MainContext, { data } from '../store/MainContext';
 
 import { HomeSection } from '../styles/pages/Home';
+import PropertyNotFound from '../components/sections/PropertyNotFound/PropertyNotFound';
+import PropertyRow from '../components/sections/PropertyRow/PropertyRow';
+import Pagination from '../components/pagination/Pagination';
 
 const Home = (): JSX.Element => {
   const [state, setState] = useState(data);
@@ -14,7 +17,9 @@ const Home = (): JSX.Element => {
   const showAddProperty = state.showAddProperty;
 
   useEffect(() => {
-    fetch(`http://localhost:5050/api/properties`)
+    fetch(
+      `http://localhost:5050/api/properties?limit=${state.limit}&page=${state.page}&search=${state.searchTerm}`,
+    )
       .then(res => res.json())
       .then(data => {
         setState({
@@ -22,8 +27,11 @@ const Home = (): JSX.Element => {
           quantProperty: data.length,
         });
         setProperties(data);
+      })
+      .catch(err => {
+        // console.log(err);
       });
-  }, [state.quantProperty]);
+  }, [state.quantProperty, state.searchTerm]);
 
   return (
     <MainContext.Provider value={{ state, setState }}>
@@ -33,6 +41,7 @@ const Home = (): JSX.Element => {
             <div className="table-name">
               <span>Imóveis</span>
             </div>
+            <InputSearchProperty />
             <AddPropertyButton />
           </div>
 
@@ -54,7 +63,9 @@ const Home = (): JSX.Element => {
                 })}
               </>
             )}
+            {properties.length === 0 ? <PropertyNotFound /> : ''}
           </div>
+          <Pagination quant={state.quantProperty} />
         </div>
       </HomeSection>
     </MainContext.Provider>

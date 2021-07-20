@@ -1,12 +1,11 @@
-import { AppProps } from 'next/dist/next-server/lib/router/router';
 import React from 'react';
 import { AiOutlineAreaChart } from 'react-icons/ai';
-import { formatPrice } from '../../helpers/format-helper';
-import { PropertyPropModel } from '../../models/property';
+import { formatPrice } from '../../../helpers/format-helper';
+import { PropertyPropModel } from '../../../models/property';
+import CheckButton from '../../buttons/checkButton/CheckButton';
+import DeleteButton from '../../buttons/deleteButton/DeleteButton';
+import EditButton from '../../buttons/editButton/EditButton';
 
-import CheckButton from '../buttons/checkButton/CheckButton';
-import DeleteButton from '../buttons/deleteButton/DeleteButton';
-import EditButton from '../buttons/editButton/EditButton';
 import { PropertyRowDiv } from './PropertyRowDiv';
 
 const PropertyRow = (props: PropertyPropModel): JSX.Element => {

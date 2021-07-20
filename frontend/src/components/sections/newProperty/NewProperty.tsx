@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { AiOutlineAreaChart } from 'react-icons/ai';
-import MainContext from '../../store/MainContext';
-import CheckButton from '../buttons/checkButton/CheckButton';
-import DeleteButton from '../buttons/deleteButton/DeleteButton';
-import InputProperty from '../inputs/inputProperty/InputProperty';
-import TextAreaProperty from '../inputs/textAreaProperty/textAreaProperty';
+import MainContext from '../../../store/MainContext';
+import CheckButton from '../../buttons/checkButton/CheckButton';
+import DeleteButton from '../../buttons/deleteButton/DeleteButton';
+import InputProperty from '../../inputs/inputProperty/InputProperty';
+import TextAreaProperty from '../../inputs/textAreaProperty/textAreaProperty';
 import { NewPropertyDiv } from './NewPropertyDiv';
 
 const NewProperty = (): JSX.Element => {
@@ -24,8 +24,6 @@ const NewProperty = (): JSX.Element => {
     city: context?.state.city,
     state: context?.state.state,
   };
-
-  console.log(editProperty);
 
   return (
     <NewPropertyDiv className="table-row new-property">

@@ -20,6 +20,9 @@ export interface IMainContext {
 
 export const data = {
   showAddProperty: false,
+  searchTerm: '',
+  limit: 3,
+  page: 1,
   isEditingProperty: {
     idEditing: '',
     isEditing: false,
