@@ -17,7 +17,7 @@ const PropertyRow = (props: PropertyPropModel): JSX.Element => {
         <div className="property-buttons">
           <CheckButton to="edit" />
           <EditButton property={props.property} />
-          <DeleteButton to="del" />
+          <DeleteButton to="del" id={props.property._id} />
         </div>
       </div>
       <div className="main-content">

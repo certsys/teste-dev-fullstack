@@ -51,6 +51,7 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
           city: '',
           state: '',
         });
+        alert('Novo imóvel cadastrado!');
       })
       .catch(err => console.log(err));
   }
@@ -101,6 +102,7 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
           city: '',
           state: '',
         });
+        alert('Imóvel editado!');
         window.location.reload();
       });
   }

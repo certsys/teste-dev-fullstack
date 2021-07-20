@@ -23,6 +23,7 @@ const DeleteButton = (props: TCheckDelButton): JSX.Element => {
           ...context.state,
           quantProperty: newQuant,
         });
+        alert('Imóvel deletado!');
       },
     );
   }
