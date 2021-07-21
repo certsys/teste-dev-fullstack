@@ -26,7 +26,7 @@ const InputSearchProperty = (): JSX.Element => {
 
   return (
     <InputSearchPropertyDiv>
-      <input type="search" onChange={event} />
+      <input type="search" placeholder="Pesquise por título" onChange={event} />
       {!searchTerm ? <FiSearch /> : ''}
     </InputSearchPropertyDiv>
   );

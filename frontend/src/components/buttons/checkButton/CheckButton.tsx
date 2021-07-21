@@ -165,7 +165,7 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
         <DialogTitle id="alert-dialog-title">{'Alerta!'}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Está certo de que deseja proceguir ?
+            Está certo de que deseja prosseguir ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
