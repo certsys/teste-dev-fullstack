@@ -20,9 +20,18 @@ export default createGlobalStyle`
   main {
     padding: 4vh 8vh;
     background-color: #eeeeee;
+
+    @media only screen and (max-width: 600px) {
+      padding: 4vh 3%;
+    }
   }
 
   section {
     min-height: calc(100vh - 40px - 60px - 8vh);
+  }
+
+  .MuiButtonBase-root {
+    padding: 0!important;
+    min-width: 10px!important;
   }
 `;

@@ -5,6 +5,12 @@ export const InputSearchPropertyDiv = styled.div`
   display: flex;
   align-items: center;
 
+  @media only screen and (max-width: 600px) {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2;
+  }
+
   input {
     width: 100%;
     height: 30px;

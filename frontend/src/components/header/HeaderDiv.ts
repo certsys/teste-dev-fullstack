@@ -16,15 +16,26 @@ export const HeaderDiv = styled.header`
     width: 100%;
     min-height: 50px;
 
+    @media only screen and (max-width: 600px) {
+      flex-direction: column;
+    }
+
     h1,
     .logo {
       margin: 10px 5px;
+      @media only screen and (max-width: 600px) {
+        margin: 5px 5px;
+      }
     }
   }
 
   .logo {
     width: 20%;
     text-align: center;
+
+    @media only screen and (max-width: 600px) {
+      width: 76px;
+    }
     img {
       height: 30px;
     }

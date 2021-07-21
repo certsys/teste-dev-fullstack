@@ -1,12 +1,12 @@
 import React from 'react';
-import { TaskNotFoundDiv } from './PropertyNotFoundDiv';
+import { PropertyNotFoundDiv } from './PropertyNotFoundDiv';
 
-const TaskNotFound = (): JSX.Element => {
+const PropertyNotFound = (): JSX.Element => {
   return (
-    <TaskNotFoundDiv className="task-not-found">
-      <h3>Nenhuma tarefa encontrada.</h3>
-    </TaskNotFoundDiv>
+    <PropertyNotFoundDiv className="property-not-found">
+      <h3>Nenhum imóvel encontrado.</h3>
+    </PropertyNotFoundDiv>
   );
 };
 
-export default TaskNotFound;
+export default PropertyNotFound;

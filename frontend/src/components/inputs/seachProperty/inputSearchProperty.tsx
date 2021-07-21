@@ -14,16 +14,19 @@ const InputSearchProperty = (): JSX.Element => {
         ...context.state,
         searchTerm: '',
       });
+    } else {
+      context.setState({
+        ...context.state,
+        searchTerm: value,
+      });
     }
-    context.setState({
-      ...context.state,
-      searchTerm: value,
-    });
   }
+
+  const event = (evt: any) => changeValue(evt.target.value);
 
   return (
     <InputSearchPropertyDiv>
-      <input type="search" onChange={evt => changeValue(evt.target.value)} />
+      <input type="search" onChange={event} />
       {!searchTerm ? <FiSearch /> : ''}
     </InputSearchPropertyDiv>
   );

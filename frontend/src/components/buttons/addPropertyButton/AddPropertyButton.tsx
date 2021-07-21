@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 
 import { AiOutlinePlusCircle } from 'react-icons/ai';
-import { viaCep } from '../../../helpers/viaCEP-helper';
 import MainContext from '../../../store/MainContext';
 import { AddPropertyButtonButton } from './AddPropertyButtonButton';
 
@@ -21,6 +20,7 @@ const AddPropertyButton = (): JSX.Element => {
       className="table-add"
       onClick={() => showAddPropertyTrue()}
     >
+      Adicionar
       <AiOutlinePlusCircle />
     </AddPropertyButtonButton>
   );

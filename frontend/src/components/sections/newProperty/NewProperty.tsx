@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { AiOutlineAreaChart } from 'react-icons/ai';
 import MainContext from '../../../store/MainContext';
+import CancelButton from '../../buttons/cancelButton/CancelButton';
 import CheckButton from '../../buttons/checkButton/CheckButton';
-import DeleteButton from '../../buttons/deleteButton/DeleteButton';
 import InputProperty from '../../inputs/inputProperty/InputProperty';
 import SelectInputProperty from '../../inputs/selectInputProperty/SelectInputProperty';
 import TextAreaProperty from '../../inputs/textAreaProperty/textAreaProperty';
@@ -36,7 +36,7 @@ const NewProperty = (): JSX.Element => {
         <div className="property-buttons">
           <CheckButton to="add" />
 
-          <DeleteButton to="cancel" />
+          <CancelButton />
         </div>
       </div>
       <div className="main-content">

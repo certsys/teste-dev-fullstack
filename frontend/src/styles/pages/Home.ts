@@ -16,6 +16,14 @@ export const HomeSection = styled.section`
     width: 100%;
     height: 40px;
     justify-content: space-between;
+
+    @media only screen and (max-width: 600px) {
+      display: grid;
+      height: 80px;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: 40px 40px;
+    }
+
     .table-name {
       span {
         letter-spacing: 2px;

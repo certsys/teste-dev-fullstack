@@ -15,6 +15,10 @@ export interface PropertyModel {
   state: string;
 }
 
+export interface ContainerPropertyModel {
+  properties: PropertyModel[];
+}
+
 export interface PropertyPropModel {
   key?: string;
   property: PropertyModel;

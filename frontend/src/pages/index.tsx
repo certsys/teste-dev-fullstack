@@ -7,7 +7,7 @@ import MainContext, { data } from '../store/MainContext';
 
 import { HomeSection } from '../styles/pages/Home';
 import PropertyNotFound from '../components/sections/PropertyNotFound/PropertyNotFound';
-import PropertyRow from '../components/sections/PropertyRow/PropertyRow';
+import ConainerProperties from '../components/sections/containerProperties/ContainerProperties';
 
 const Home = (): JSX.Element => {
   const [state, setState] = useState(data);
@@ -26,12 +26,6 @@ const Home = (): JSX.Element => {
           quantProperty: data.length,
         });
         setProperties(data);
-      })
-      .catch(err => {
-        setState({
-          ...state,
-          quantProperty: 0,
-        });
       });
   }, [state.quantProperty, state.searchTerm]);
 
@@ -43,7 +37,7 @@ const Home = (): JSX.Element => {
             <div className="table-name">
               <span>Imóveis</span>
             </div>
-            {isEditing ? <></> : <InputSearchProperty />}
+            {isEditing || showAddProperty ? <></> : <InputSearchProperty />}
             <AddPropertyButton />
           </div>
 
@@ -54,16 +48,7 @@ const Home = (): JSX.Element => {
             {showAddProperty || quantProperty === 0 ? (
               <></>
             ) : (
-              <>
-                {properties.map(property => {
-                  return (
-                    <PropertyRow
-                      key={property._id}
-                      property={property}
-                    ></PropertyRow>
-                  );
-                })}
-              </>
+              <ConainerProperties properties={properties} />
             )}
             {properties.length === 0 || quantProperty === 0 ? (
               <PropertyNotFound />

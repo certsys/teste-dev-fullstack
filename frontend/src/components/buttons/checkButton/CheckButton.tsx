@@ -7,11 +7,18 @@ import { TCheckAddButton } from '../../../models/types';
 import MainContext from '../../../store/MainContext';
 import { CheckButtonButton } from './CheckButtonButton';
 
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 const CheckButton = (props: TCheckAddButton): JSX.Element => {
   const context = useContext(MainContext);
+  const [open, setOpen] = React.useState(false);
 
   function addProperty() {
-    if (!confirm('Tem certeza que deseja adicionar este imóvel?')) return;
     const newProperty = {
       title: context?.state.title,
       description: context?.state.description,
@@ -59,7 +66,6 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
   }
 
   function editProperty() {
-    if (!confirm('Tem certeza que deseja editar este imóvel?')) return;
     const newProperty = {
       title: context?.state.title,
       description: context?.state.description,
@@ -110,6 +116,7 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
   }
 
   function addOrEditProperty() {
+    setOpen(false);
     if (!context.state.isEditingProperty) {
       if (returnFieldsEmpty(context?.state).length) {
         alert(`Opss.. campo vazio!`);
@@ -134,13 +141,43 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
     }
   }
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <CheckButtonButton
-      className="property-check"
-      onClick={() => addOrEditProperty()}
-    >
-      <BsCheckBox />
-    </CheckButtonButton>
+    <>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        <CheckButtonButton className="property-check">
+          <BsCheckBox />
+        </CheckButtonButton>
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{'Alerta!'}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Está certo de que deseja proceguir ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Não
+          </Button>
+          <Button onClick={addOrEditProperty} color="primary" autoFocus>
+            Sim
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 
