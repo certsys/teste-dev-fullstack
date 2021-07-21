@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "d8fc2052-6d2d-4dce-b3c2-8a8a90705bdf",
+		"name": "Teste-Dev-Fullstack-API",
+		"description": "Uma lista de tarefas com usuários, que para cada usuário logado é mostrado apenas as suas tarefas. Aplicação está sendo construída no objetivo de por a prova meus conhecimentos adquiridos nos meus estudos diários.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Properties",
+			"item": [
+				{
+					"name": "Create a new property",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Cada Linear no Quitandinha\",\n    \"description\": \"Exelente casa linear próximo ao Quitandinha\",\n    \"value\": 850000,\n    \"area\": \"350m\",\n    \"address\": \"Rua tal\",\n    \"public_place\": \"Logradouro tal\",\n    \"number\": \"01\",\n    \"adjunct\": \"Frente\",\n    \"neighborhood\": \"centro\",\n    \"zip_code\": \"00000000\",\n    \"city\": \"Cidade tal\",\n    \"state\": \"Estado tal\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5050/api/properties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5050",
+							"path": [
+								"api",
+								"properties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find all properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5050/api/properties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5050",
+							"path": [
+								"api",
+								"properties"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Cada",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a property by ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"Exelente casa linear com 3 quartos mais uma suite próximo ao Quitandinha\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5050/api/properties/60f5703140521000340f374f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5050",
+							"path": [
+								"api",
+								"properties",
+								"60f5703140521000340f374f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find a property by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5050/api/properties/60f3824075d644002c6c1b2d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5050",
+							"path": [
+								"api",
+								"properties",
+								"60f3824075d644002c6c1b2d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a property by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5050/api/properties/60f573f668dee7027d895246",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5050",
+							"path": [
+								"api",
+								"properties",
+								"60f573f668dee7027d895246"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
