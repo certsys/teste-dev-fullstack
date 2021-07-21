@@ -70,7 +70,7 @@ describe('Property Mongo Repository', () => {
         },
       ]);
       const sut = makeSut();
-      const properties = await sut.loadAll();
+      const properties = await sut.loadAll({});
       expect(properties.length).toBe(2);
       expect(properties[0].title).toBe('any_title');
       expect(properties[1].title).toBe('other_title');
@@ -78,7 +78,7 @@ describe('Property Mongo Repository', () => {
 
     test('Should load empty list ', async () => {
       const sut = makeSut();
-      const properties = await sut.loadAll();
+      const properties = await sut.loadAll({});
       expect(properties.length).toBe(0);
     });
   });
