@@ -1,3 +1,64 @@
+# Projeto CertImóveis
+
+  Aplicação de venda de imóveis feita em Nodejs e Reactjs com Typescript, TDD, clean arquitecture e Docker no backend, para o processo seletivo de Desenvolvedor Fullstack da Certsys.
+
+## CertImóveis
+
+  Uma lista de tarefas com usuários, que para cada usuário logado é mostrado apenas as suas tarefas. Aplicação está sendo construída no objetivo de por a prova meus conhecimentos adquiridos nos meus estudos diários.
+  
+### [Link para a documentação da api](http://localhost:5050/api-docs/)
+
+### Principais tecnologias utilizadas
+
+ - Typescript
+ - Reactjs
+ - Nextjs
+ - Nodejs
+ - Express
+ - Mongodb
+ - Docker
+
+### Para rodar você precisará
+
+ - Node
+ - Docker
+
+### Inicialização Passo à Passo 
+
+  Rodando o Backend Desenvolvimento
+  - cd backend
+  - npm i
+  - npm run up
+
+  Rodando o Frontend Desenvolvimento
+  - cd frontend
+  - npm i
+  - npm run dev
+
+  Rodando o Backend Produção
+  - cd backend
+  - npm i
+  - npm run build
+  - npm run start
+
+  Rodando o Frontend Produção
+  - cd frontend
+  - npm i
+  - npm run build
+  - npm run start
+
+### Rodando testes no backend
+
+  Testes unitarios
+  - cd backend
+  - npm test:unit
+
+  Testes de integração
+  - cd backend
+  - test:integration
+
+# Descrição da Tarefa
+
 # Desenvolvedor Full Stack
 
 Então, quer dizer que você gosta de desafios e quer se tornar um desenvolvedor full stack na Certsys? Está no lugar certo!
