@@ -23,18 +23,39 @@
  - Node
  - Docker
 
-### Inicialização Passo à Passo
+### Inicialização Passo à Passo 
 
-  Rodando o Backend
+  Rodando o Backend Desenvolvimento
   - cd backend
+  - npm i
   - npm run up
 
-  Rodando o Frontend
+  Rodando o Frontend Desenvolvimento
   - cd frontend
+  - npm i
   - npm run dev
 
+  Rodando o Backend Produção
+  - cd backend
+  - npm i
+  - npm run build
+  - npm run start
 
+  Rodando o Frontend Produção
+  - cd frontend
+  - npm i
+  - npm run build
+  - npm run start
 
+### Rodando testes no backend
+
+  Testes unitarios
+  - cd backend
+  - npm test:unit
+
+  Testes de integração
+  - cd backend
+  - test:integration
 
 # Descrição da Tarefa
 
