@@ -5,6 +5,8 @@
 ## CertImóveis
 
   Uma lista de tarefas com usuários, que para cada usuário logado é mostrado apenas as suas tarefas. Aplicação está sendo construída no objetivo de por a prova meus conhecimentos adquiridos nos meus estudos diários.
+  
+### [Link para a documentação da api](http://localhost:5050/api-docs/)
 
 ### Principais tecnologias utilizadas
 
@@ -31,7 +33,7 @@
   - cd frontend
   - npm run dev
 
-[Link para a documentação da api](http://localhost:5050/api-docs/)
+
 
 # Desenvolvedor Full Stack
 
