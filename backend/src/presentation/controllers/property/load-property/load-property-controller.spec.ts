@@ -1,15 +1,7 @@
-import {
-  LoadProperty,
-  PropertyModel,
-} from './load-property-controller-protocols';
+import { LoadProperty, PropertyModel } from './load-property-controller-protocols';
 
 import MockDate from 'mockdate';
-import {
-  noContent,
-  notFound,
-  ok,
-  serverError,
-} from '../../../helpers/http-helper';
+import { noContent, notFound, ok, serverError } from '../../../helpers/http-helper';
 import { LoadPropertyController } from './load-property-controller';
 
 const makeFakeProperty = (): PropertyModel => {
@@ -74,9 +66,7 @@ describe('LoadProperty Controller', () => {
 
   test('Should return 404 if any property is not found', async () => {
     const { sut, loadPropertyStub } = makeSut();
-    jest
-      .spyOn(loadPropertyStub, 'load')
-      .mockReturnValueOnce(new Promise(resolve => resolve(null)));
+    jest.spyOn(loadPropertyStub, 'load').mockReturnValueOnce(new Promise(resolve => resolve(null)));
     const httpRequest = {
       params: 'worng_id',
     };
@@ -88,9 +78,7 @@ describe('LoadProperty Controller', () => {
     const { sut, loadPropertyStub } = makeSut();
     jest
       .spyOn(loadPropertyStub, 'load')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
 
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(serverError(new Error()));

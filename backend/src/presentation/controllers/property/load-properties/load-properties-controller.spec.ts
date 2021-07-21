@@ -1,8 +1,5 @@
 import { LoadPropertiesController } from './load-properties-controller';
-import {
-  LoadProperties,
-  PropertyModel,
-} from './load-properties-controller-protocols';
+import { LoadProperties, PropertyModel } from './load-properties-controller-protocols';
 
 import MockDate from 'mockdate';
 import { noContent, ok, serverError } from '../../../helpers/http-helper';
@@ -91,9 +88,7 @@ describe('LoadProperties Controller', () => {
 
   test('Should return 204 if LoadProperties returns empty', async () => {
     const { sut, loadPropertiesStub } = makeSut();
-    jest
-      .spyOn(loadPropertiesStub, 'load')
-      .mockReturnValueOnce(new Promise(resolve => resolve([])));
+    jest.spyOn(loadPropertiesStub, 'load').mockReturnValueOnce(new Promise(resolve => resolve([])));
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(noContent());
   });
@@ -102,9 +97,7 @@ describe('LoadProperties Controller', () => {
     const { sut, loadPropertiesStub } = makeSut();
     jest
       .spyOn(loadPropertiesStub, 'load')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
 
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(serverError(new Error()));
