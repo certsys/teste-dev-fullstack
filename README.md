@@ -31,7 +31,7 @@
   - cd frontend
   - npm run dev
 
-[http://localhost:5050/api-docs/](Link para a documentação da api)
+[Link para a documentação da api](http://localhost:5050/api-docs/)
 
 # Desenvolvedor Full Stack
 
