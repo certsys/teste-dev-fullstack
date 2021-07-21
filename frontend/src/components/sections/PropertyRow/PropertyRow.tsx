@@ -1,6 +1,6 @@
 import React from 'react';
 import { AiOutlineAreaChart } from 'react-icons/ai';
-import { formatPrice } from '../../../helpers/format-helper';
+import { formatArea, formatPrice } from '../../../helpers/format-helper';
 import { PropertyPropModel } from '../../../models/property';
 import CheckButton from '../../buttons/checkButton/CheckButton';
 import DeleteButton from '../../buttons/deleteButton/DeleteButton';
@@ -14,7 +14,6 @@ const PropertyRow = (props: PropertyPropModel): JSX.Element => {
       <div className="top">
         <h3 className="title">{props.property.title}</h3>
         <div className="property-buttons">
-          <CheckButton to="edit" />
           <EditButton property={props.property} />
           <DeleteButton to="del" id={props.property._id} />
         </div>
@@ -25,7 +24,7 @@ const PropertyRow = (props: PropertyPropModel): JSX.Element => {
             <div className="address">
               <span>
                 {props.property.address}, {props.property.number} -{' '}
-                {props.property.neighborhood},{props.property.city}/
+                {props.property.neighborhood}, {props.property.city}/
                 {props.property.state}
               </span>
               <span>
@@ -37,7 +36,8 @@ const PropertyRow = (props: PropertyPropModel): JSX.Element => {
                 <span>{formatPrice(props.property.value)}</span>
               </div>
               <div className="area">
-                <AiOutlineAreaChart /> <span>{props.property.area}</span>
+                <AiOutlineAreaChart />{' '}
+                <span>{formatArea(props.property.area)}</span>
               </div>
             </div>
           </div>

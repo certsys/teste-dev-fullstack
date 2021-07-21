@@ -7,3 +7,7 @@ export const formatPrice = (price: number) => {
   }
   return `R$ ${stringPrice.replace('.', ',')},00`;
 };
+
+export const formatArea = (area: number | string) => {
+  return `${area.toString().replace('m', '')}m`;
+};

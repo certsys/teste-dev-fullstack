@@ -4,6 +4,7 @@ import MainContext from '../../../store/MainContext';
 import CheckButton from '../../buttons/checkButton/CheckButton';
 import DeleteButton from '../../buttons/deleteButton/DeleteButton';
 import InputProperty from '../../inputs/inputProperty/InputProperty';
+import SelectInputProperty from '../../inputs/selectInputProperty/SelectInputProperty';
 import TextAreaProperty from '../../inputs/textAreaProperty/textAreaProperty';
 import { NewPropertyDiv } from './NewPropertyDiv';
 
@@ -48,7 +49,11 @@ const NewProperty = (): JSX.Element => {
               </label>
               <label className="number">
                 Número:
-                <InputProperty field={'number'} value={editProperty.number} />
+                <InputProperty
+                  field={'number'}
+                  type={'number'}
+                  value={editProperty.number}
+                />
               </label>
               <label className="neighborhood">
                 Bairro:
@@ -63,7 +68,10 @@ const NewProperty = (): JSX.Element => {
               </label>
               <label className="state">
                 Estado:
-                <InputProperty field={'state'} value={editProperty.state} />
+                <SelectInputProperty
+                  field={'state'}
+                  value={editProperty.state}
+                />
               </label>
               <label className="adjunct">
                 Conplemento:
@@ -97,7 +105,11 @@ const NewProperty = (): JSX.Element => {
                 <label>
                   Área (m²):
                   <span>
-                    <InputProperty field={'area'} value={editProperty.area} />
+                    <InputProperty
+                      field={'area'}
+                      type={'number'}
+                      value={editProperty.area}
+                    />
                     <AiOutlineAreaChart />
                   </span>
                 </label>

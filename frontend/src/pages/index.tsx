@@ -15,6 +15,7 @@ const Home = (): JSX.Element => {
 
   const showAddProperty = state.showAddProperty;
   const quantProperty = state.quantProperty;
+  const isEditing = state.isEditingProperty.isEditing;
 
   useEffect(() => {
     fetch(`http://localhost:5050/api/properties?search=${state.searchTerm}`)
@@ -42,7 +43,7 @@ const Home = (): JSX.Element => {
             <div className="table-name">
               <span>Imóveis</span>
             </div>
-            <InputSearchProperty />
+            {isEditing ? <></> : <InputSearchProperty />}
             <AddPropertyButton />
           </div>
 

@@ -11,6 +11,7 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
   const context = useContext(MainContext);
 
   function addProperty() {
+    if (!confirm('Tem certeza que deseja adicionar este imóvel?')) return;
     const newProperty = {
       title: context?.state.title,
       description: context?.state.description,
@@ -58,6 +59,7 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
   }
 
   function editProperty() {
+    if (!confirm('Tem certeza que deseja editar este imóvel?')) return;
     const newProperty = {
       title: context?.state.title,
       description: context?.state.description,
@@ -72,7 +74,6 @@ const CheckButton = (props: TCheckAddButton): JSX.Element => {
       city: context?.state.city,
       state: context?.state.state,
     };
-
     const id = context?.state.isEditingProperty.id;
 
     const requestOptions = {

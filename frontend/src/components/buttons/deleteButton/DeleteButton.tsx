@@ -9,6 +9,8 @@ const DeleteButton = (props: TCheckDelButton): JSX.Element => {
   const context = useContext(MainContext);
 
   function deleteProperty(): void {
+    if (!confirm('Tem certeza que deseja deletar este imóvel?')) return;
+
     const id = props.id;
     const requestOptions = {
       method: 'delete',
