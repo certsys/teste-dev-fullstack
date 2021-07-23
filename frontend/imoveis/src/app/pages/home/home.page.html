@@ -1,0 +1,73 @@
+<ion-app>
+  <ion-content>
+    <div class="body">
+      <div class="header">
+        <div class="header-text">
+          <span>Classificado de imóveis</span>
+        </div>
+        <div class="header-menu">
+          <button class="btnMenu" mat-button [matMenuTriggerFor]="menu">
+            Olá, {{user.name}}
+            <img src="../../../assets/icon/arrow.svg" alt="" />
+          </button>
+        </div>
+      </div>
+      <div class="body-cards">
+        <mat-accordion *ngFor="let p of properties" class="card">
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <div class="body-title-card">
+                  <img src="../../../assets/icon/home.svg" alt="">
+                  <span>{{p.title}}</span>
+                </div>
+              </mat-panel-title>
+              <mat-panel-description>
+                <div class="body-title-card">
+                  <span>R$</span>
+                  <p>{{p.amount}},00</p>
+                </div>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+              <span class="text">Descrição:</span>
+              <p class="subText"> {{p.description}}</p>
+            </div>
+            <div class="description">
+              <div>
+                <span class="text">Valor:</span>
+                <p class="subText"> R$ {{p.amount}},00</p>
+              </div>
+              <div class="description-context">
+                <span class="text">Tamanho:</span>
+                <p class="subText"> {{p.size}} m²</p>
+              </div>
+            </div>
+            <div class="description">
+              <div>
+                <span class="text">Localizado:</span>
+                <p class="subText"> {{p.street}}, {{p.number}}, {{p.district}}</p>
+              </div>
+            </div>
+            <div class="description">
+              <div>
+                <p class="subText"> {{p.city}}, {{p.state}}</p>
+              </div>
+            </div>
+            <div class="btn-body">
+              <button class="btn-exclud" type="submit" (click)="deletePropertie(p._id)">Excluir</button>
+              <button class="btn-edit" type="submit" (click)="editPropertie(p._id, 1)">Editar</button>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </ion-content>
+</ion-app>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="createProperties()">
+    Cadastrar imóvel
+  </button>
+  <button mat-menu-item (click)="logoff()">Sair</button>
+</mat-menu>
