@@ -1,0 +1,108 @@
+<ion-app>
+  <div class="body">
+  <ion-content>
+    <div class="body-content">
+      <div class="header">
+        <div class="header-text">
+          <span>Cadastro de imóveis</span>
+        </div>
+        <div class="header-menu">
+          <button class="btnMenu" (click)="back(1)">
+            Voltar
+          </button>
+        </div>
+      </div>
+
+      <div class="body-form">
+        <form [formGroup]="create" method="post">
+          <div class="input-body">
+            <label class="label-text">Título</label>
+            <div class="container-input">
+              <input placeholder="Título" type="text" formControlName="title">
+            </div>
+          </div>
+          <div class="input-body">
+            <label class="label-text">Descrição</label>
+            <div class="container-input">
+              <textarea cols="62" rows="4" placeholder="Descrição" type="text" formControlName="description"></textarea>
+            </div>
+          </div>
+          <div class="form-line">
+            <div class="input-body">
+              <label class="label-text">Valor R$</label>
+              <div class="container-input">
+                <input class="input-amount" placeholder="Valor R$" type="number" formControlName="amount">
+              </div>
+            </div>
+            <div class="input-body">
+              <label class="label-text">Tamanho (m²)</label>
+              <div class="container-input">
+                <input class="input-size" placeholder="Tamanho (m²)" type="number" formControlName="size">
+              </div>
+            </div>
+          </div>
+          <div class="form-line">
+            <div class="input-body">
+              <label class="label-text">Cep</label>
+              <div class="container-input">
+                <input class="input-cep" placeholder="Cep" type="text" formControlName="zipe_code" (blur)="consultaCep()">
+              </div>
+            </div>
+            <div class="input-body">
+              <label class="label-text">Rua</label>
+              <div class="container-input">
+                <input class="input-rua" placeholder="Rua" type="text" formControlName="street">
+              </div>
+            </div>
+          </div>
+          <div class="form-line">
+            <div class="input-body">
+              <label class="label-text">Complemento</label>
+              <div class="container-input">
+                <input class="input-complemento" placeholder="Complemento" type="text" formControlName="complement">
+              </div>
+            </div>
+            <div class="input-body">
+              <label class="label-text">Número</label>
+              <div class="container-input">
+                <input class="input-numero" placeholder="Número" type="number" formControlName="number">
+              </div>
+            </div>
+          </div>
+          <div class="form-line">
+            <div class="input-body">
+              <label class="label-text">Bairro</label>
+              <div class="container-input">
+                <input class="input-bairro" placeholder="Bairro" type="text" formControlName="district">
+              </div>
+            </div>
+            <div class="input-body">
+              <label class="label-text">Cidade</label>
+              <div class="container-input">
+                <input class="input-cidade" placeholder="Cidade" type="text" formControlName="city">
+              </div>
+            </div>
+            <div class="input-body">
+              <label class="label-text">UF</label>
+              <div class="container-input">
+                <input class="input-uf" placeholder="UF" type="text" formControlName="state">
+              </div>
+            </div>
+          </div>
+          <div class="btn-body">
+            <button class="btnSubmit" type="submit" (click)="createPropertie()">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="msgSuccess" *ngIf="notificationSuccess === true">
+      <span>{{msgSuccess}}</span>
+    </div>
+
+    <div class="msgError" *ngIf="notificationError === true">
+      <span>{{errorMsg}}</span>
+    </div>
+  </ion-content>
+  </div>
+</ion-app>
