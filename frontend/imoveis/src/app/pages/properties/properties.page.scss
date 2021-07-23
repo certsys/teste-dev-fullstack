@@ -8,6 +8,13 @@
   flex-direction: column;
 }
 
+.body-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .header{
   width: 100vw;
   height: 80px;
@@ -18,6 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  z-index: 10;
 }
 
 .header span{
@@ -29,6 +38,10 @@
   color: #ffffff;
   // color: #09101D;
   margin-left: 16px;
+
+  @media (max-width: 600px) {
+    font-size: 18px;
+  }
 }
 
 .header-text{
@@ -36,6 +49,10 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+
+  @media (max-width: 600px) {
+    width: 60vw;
+  }
 }
 
 .header-menu{
@@ -43,6 +60,10 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+
+  @media (max-width: 600px) {
+    width: 40vw;
+  }
 }
 
 .btnMenu{
@@ -58,12 +79,22 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
+
+  @media (max-width: 600px) {
+    margin-right: 8px;
+  }
 }
 
 .body-form {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  padding-top: 64px;
+
+  @media (max-height: 811px) {
+    margin-top: 60px;
+    padding-bottom: 60px;
+  }
 }
 
 .input-body{
@@ -196,7 +227,11 @@
 
   position: fixed;
   bottom: 16px;
-  left: 32px;
+  left: 10vw;
+
+  @media (max-width: 600px) {
+    width: 80vw;
+  }
 
   span {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -223,7 +258,11 @@
 
   position: fixed;
   bottom: 16px;
-  left: 32px;
+  left: 10vw;
+
+  @media (max-width: 600px) {
+    width: 80vw;
+  }
 
   span {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -234,5 +273,82 @@
     align-items: center;
     color: #ffffff;
     background: none;
+  }
+}
+
+.input-amount{
+  width: 19vw !important;
+  margin-right: 2vw;
+
+  @media (max-width: 600px) {
+    width: 39vw !important;
+  }
+}
+
+.input-size {
+  width: 19vw !important;
+
+  @media (max-width: 600px) {
+    width: 39vw !important;
+  }
+}
+
+.input-cep{
+  width: 10vw !important;
+  margin-right: 2vw;
+
+  @media (max-width: 600px) {
+    width: 24vw !important;
+  }
+}
+
+.input-rua{
+  width: 28vw !important;
+
+  @media (max-width: 600px) {
+    width: 54vw !important;
+  }
+}
+
+.input-complemento{
+  width: 28vw !important;
+  margin-right: 2vw;
+
+  @media (max-width: 600px) {
+    width: 58vw !important;
+  }
+}
+
+.input-numero{
+  width: 10vw !important;
+
+  @media (max-width: 600px) {
+    width: 20vw !important;
+  }
+}
+
+.input-bairro{
+  width: 15vw !important;
+  margin-right: 2vw;
+
+  @media (max-width: 600px) {
+    width: 32vw !important;
+  }
+}
+
+.input-cidade{
+  width: 15vw !important;
+  margin-right: 2vw;
+
+  @media (max-width: 600px) {
+    width: 32vw !important;
+  }
+}
+
+.input-uf{
+  width: 6vw !important;
+
+  @media (max-width: 600px) {
+    width: 12vw !important;
   }
 }

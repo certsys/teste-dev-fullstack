@@ -8,6 +8,13 @@
   flex-direction: column;
 }
 
+.body-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .header{
   width: 100vw;
   height: 80px;
@@ -18,6 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  z-index: 10;
 }
 
 .header span{
@@ -27,8 +36,11 @@
   font-size: 24px;
   line-height: 20px;
   color: #ffffff;
-  // color: #09101D;
   margin-left: 16px;
+
+  @media (max-width: 600px) {
+    font-size: 18px;
+  }
 }
 
 .header-text{
@@ -36,6 +48,10 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+
+  @media (max-width: 600px) {
+    width: 60vw;
+  }
 }
 
 .header-menu{
@@ -43,6 +59,10 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+
+  @media (max-width: 600px) {
+    width: 40vw;
+  }
 }
 
 .btnMenu{
@@ -58,6 +78,10 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
+
+  @media (max-width: 600px) {
+    margin-right: 8px;
+  }
 }
 
 .btnMenu img{
@@ -96,6 +120,8 @@
   justify-content: center;
   flex-direction: column;
   width: 80vw;
+
+  margin-top: 120px;
 }
 
 .card{
@@ -103,7 +129,7 @@
   margin-bottom: 40px;
 
   @media (max-width: 600px) {
-      width: 80vw;
+      width: 95vw;
     }
 }
 
@@ -117,6 +143,12 @@
   width: 40px;
   height: 40px;
   margin-right: 16px;
+
+  @media (max-width: 600px) {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+  }
 }
 
 .body-title-card span{
@@ -128,6 +160,10 @@
   align-items: center;
   color: #09101D;
   background: none;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+  }
 }
 
 .body-title-card p{
@@ -139,6 +175,10 @@
   color: #09101D;
   background: none;
   margin-left: 8px;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+  }
 }
 
 .text{
