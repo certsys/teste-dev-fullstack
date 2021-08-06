@@ -1,0 +1,185 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Cert Imóveis Documentation",
+    "description": "This is an API Cert Imóveis",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Josimar Junior",
+      "email": "josimarjr479@gmail.com"
+    }
+  },
+  "paths": {
+    "/properties": {
+      "post": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "Create a property",
+        "description": "Create new a property",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  },
+                  "area": {
+                    "type": "number"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "public_place": {
+                    "type": "string"
+                  },
+                  "house_number": {
+                    "type": "number"
+                  },
+                  "complement": {
+                    "type": "string"
+                  },
+                  "district": {
+                    "type": "string"
+                  },
+                  "cep": {
+                    "type": "number"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "uf": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "title": "Imóvel Martins",
+                "description": "Fazenda Martins",
+                "value": "1500",
+                "area": "600",
+                "address": "Rua fazenda Martins",
+                "public_place": "Rua Fazenda Martins",
+                "house_number": "5122",
+                "complement": "Fazenda",
+                "district": "Zona Leste",
+                "cep": "9999999",
+                "city": "Fazenda",
+                "uf": "FM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Property already exist!"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "List all properties",
+        "description": "List all properties",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "default": "9kl23b4-23b3-l23n4-324kl3"
+                      },
+                      "title": {
+                        "type": "string",
+                        "default": "Fazenda Martins"
+                      },
+                      "description": {
+                        "type": "string",
+                        "default": "Fazenda Martins da zona leste"
+                      },
+                      "value": {
+                        "type": "number",
+                        "default": 1500
+                      },
+                      "area": {
+                        "type": "number",
+                        "default": 616
+                      },
+                      "address": {
+                        "type": "string",
+                        "default": "Rua Fazenda Martins"
+                      },
+                      "public_place": {
+                        "type": "string",
+                        "default": "Rua Fazenda Martins"
+                      },
+                      "house_number": {
+                        "type": "number",
+                        "default": 943
+                      },
+                      "complement": {
+                        "type": "string",
+                        "default": "Fazenda"
+                      },
+                      "district": {
+                        "type": "string",
+                        "default": "Zona Rural"
+                      },
+                      "cep": {
+                        "type": "number",
+                        "default": 64664000
+                      },
+                      "city": {
+                        "type": "string",
+                        "default": "Martins"
+                      },
+                      "uf": {
+                        "type": "string",
+                        "default": "FM"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "default": "2021-08-05T00:00:00"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Specification": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
