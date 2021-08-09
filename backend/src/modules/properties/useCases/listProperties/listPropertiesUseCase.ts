@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import { Property } from '@modules/properties/infra/typeorm/entities/Property';
 import { IPropertiesRepository } from '@modules/properties/repositories/IPropertiesRepository';
+import { IFindParamsDTO } from '@modules/properties/dtos/IFindParamsDTO';
 
 @injectable()
 class ListPropertiesUseCase {
@@ -9,8 +10,10 @@ class ListPropertiesUseCase {
     private propertiesRepository: IPropertiesRepository,
   ) { }
 
-  async execute(): Promise<Property[]> {
-    const properties = await this.propertiesRepository.find();
+  async execute(
+    { page, limit }: IFindParamsDTO
+  ): Promise<[properties: Property[], totalCount: number ]> {
+    const properties = await this.propertiesRepository.find({ page, limit });
 
     return properties;
   }
