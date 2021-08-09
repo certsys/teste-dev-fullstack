@@ -1,0 +1,340 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Cert Imóveis Documentation",
+    "description": "This is an API Cert Imóveis",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Josimar Junior",
+      "email": "josimarjr479@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new user",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": {
+                "name": "Admin",
+                "email": "admin@certimoveis.com.br",
+                "password": "admin_test"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "User already exist!"
+          }
+        }
+      }
+    },
+    "/sessions": {
+      "post": {
+        "tags": ["Sessions"],
+        "summary": "Authenticate a user",
+        "description": "Authenticate a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": {
+                "email": "admin@certimoveis.com.br",
+                "password": "admin_test"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authenticated"
+          },
+          "400": {
+            "description": "Email or password incorrect!"
+          }
+        }
+      }
+    },
+    "/properties": {
+      "post": {
+        "tags": ["Properties"],
+        "summary": "Create a property",
+        "description": "Create new a property",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  },
+                  "area": {
+                    "type": "number"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "house_number": {
+                    "type": "number"
+                  },
+                  "cep": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": {
+                "title": "Imóvel Martins",
+                "description": "Fazenda Martins",
+                "value": "1500",
+                "area": "600",
+                "address": "Rua fazenda Martins",
+                "public_place": "Rua Fazenda Martins",
+                "house_number": "5122",
+                "complement": "Fazenda",
+                "district": "Zona Leste",
+                "cep": "9999999",
+                "city": "Fazenda",
+                "uf": "FM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Property already exist!"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Properties"],
+        "summary": "List all properties",
+        "description": "List all properties",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "default": "9kl23b4-23b3-l23n4-324kl3"
+                      },
+                      "title": {
+                        "type": "string",
+                        "default": "Fazenda Martins"
+                      },
+                      "description": {
+                        "type": "string",
+                        "default": "Fazenda Martins da zona leste"
+                      },
+                      "value": {
+                        "type": "number",
+                        "default": 1500
+                      },
+                      "area": {
+                        "type": "number",
+                        "default": 616
+                      },
+                      "address": {
+                        "type": "string",
+                        "default": "Rua Fazenda Martins"
+                      },
+                      "public_place": {
+                        "type": "string",
+                        "default": "Rua Fazenda Martins"
+                      },
+                      "house_number": {
+                        "type": "number",
+                        "default": 943
+                      },
+                      "complement": {
+                        "type": "string",
+                        "default": "Fazenda"
+                      },
+                      "district": {
+                        "type": "string",
+                        "default": "Zona Rural"
+                      },
+                      "cep": {
+                        "type": "number",
+                        "default": 64664000
+                      },
+                      "city": {
+                        "type": "string",
+                        "default": "Martins"
+                      },
+                      "uf": {
+                        "type": "string",
+                        "default": "FM"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "default": "2021-08-05T00:00:00"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Properties"],
+        "summary": "Update the property",
+        "description": "Update a property by Id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "description": "Id of property"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  },
+                  "area": {
+                    "type": "number"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "public_place": {
+                    "type": "string"
+                  },
+                  "complement": {
+                    "type": "string"
+                  },
+                  "house_number": {
+                    "type": "number"
+                  },
+                  "cep": {
+                    "type": "number"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "uf": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "title": "Imóvel Martins",
+                "description": "Fazenda Martins",
+                "value": "1500",
+                "area": "600",
+                "address": "Rua fazenda Martins",
+                "public_place": "Rua Fazenda Martins",
+                "house_number": "5122",
+                "complement": "Fazenda",
+                "district": "Zona Leste",
+                "cep": "9999999",
+                "city": "Fazenda",
+                "uf": "FM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated with success!"
+          },
+          "404": {
+            "description": "Property not exist!"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Properties"],
+        "summary": "Delete the property",
+        "description": "Delete a property by Id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "description": "Id of property"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted with success!"
+          },
+          "404": {
+            "description": "Property not exist!"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Specification": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
