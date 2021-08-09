@@ -31,7 +31,7 @@ class UpdatePropertyUseCase {
     if (!propertyExists) {
       throw new AppError('Property not exist!', 404);
     }
-
+    
     const property = await this.propertiesRepository.update({
       id,
       title,
