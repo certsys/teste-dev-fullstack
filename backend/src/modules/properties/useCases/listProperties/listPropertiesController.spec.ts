@@ -46,6 +46,10 @@ describe('List Properties Controller', () => {
 
     const response = await request(app)
       .get(`/properties`)
+      .query({
+        page: 1,
+        limit: 8
+      })
       .set({
         Authorization: `Bearer ${token}`,
       });

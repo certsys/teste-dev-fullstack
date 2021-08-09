@@ -1,3 +1,4 @@
+import { IFindParamsDTO } from "@modules/properties/dtos/IFindParamsDTO";
 import { ICreatePropertyDTO } from "../../dtos/ICreatePropertyDTO";
 import { Property } from "../../infra/typeorm/entities/Property";
 import { IPropertiesRepository } from '../IPropertiesRepository';
@@ -51,7 +52,7 @@ class FakePropertiesRepository implements IPropertiesRepository {
   }
 
   public async update(
-   data: Property
+    data: Property
   ): Promise<Property> {
     const property = new Property();
     const propertyIndex = this.properties.findIndex(
@@ -66,8 +67,14 @@ class FakePropertiesRepository implements IPropertiesRepository {
     return property;
   }
 
-  public async find(): Promise<Property[]> {
-    return this.properties;
+  public async find({ page, limit }: IFindParamsDTO): Promise<[properties: Property[], totalCount: number ]> {
+    const pageStart = (Number(page) - 1) * Number(limit);
+    const pageEnd = pageStart + Number(limit);
+    const properties = this.properties.slice(pageStart, pageEnd);
+    return [
+      properties,
+      this.properties.length
+    ]
   }
 
   public async delete(id: string): Promise<boolean> {

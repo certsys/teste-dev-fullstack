@@ -1,14 +1,20 @@
+import { FakeCEPProvider } from "@shared/container/CEPProvider/fakes/FakeCEPProvider";
 import { AppError } from "@shared/errors/AppError";
 import { FakePropertiesRepository } from "../../repositories/fakes/FakesPropertiesRepository";
 import { CreatePropertyUseCase } from "./createPropertyUseCase";
 
 let fakePropertiesRepository: FakePropertiesRepository;
+let fakeCEPProvider: FakeCEPProvider;
 let createPropertyUseCase: CreatePropertyUseCase;
 
-describe('Create Propert', () => {
+describe('Create Property', () => {
   beforeEach(() => {
     fakePropertiesRepository = new FakePropertiesRepository();
-    createPropertyUseCase = new CreatePropertyUseCase(fakePropertiesRepository);
+    fakeCEPProvider = new FakeCEPProvider();
+    createPropertyUseCase = new CreatePropertyUseCase(
+      fakePropertiesRepository, 
+      fakeCEPProvider
+    );
   });
 
   it('should be able to create new user', async () => {
@@ -18,13 +24,8 @@ describe('Create Propert', () => {
       value: 1200,
       area: 600,
       address: 'Rua Fazenda Martins',
-      public_place: 'Rua Martins Fazenda',
       house_number: 9463,
-      complement: 'Fazenda',
-      district: 'Zona Leste',
       cep: 84313630,
-      city: 'Fazenda City',
-      uf: 'FM',
     });
 
     expect(property).toHaveProperty('id');
@@ -52,13 +53,8 @@ describe('Create Propert', () => {
       value: 1200,
       area: 600,
       address: 'Rua Fazenda Martins',
-      public_place: 'Rua Martins Fazenda',
       house_number: 9463,
-      complement: 'Fazenda',
-      district: 'Zona Leste',
-      cep: 84313630,
-      city: 'Fazenda City',
-      uf: 'FM',
+      cep: 84313630
     })).rejects.toEqual(new AppError('Property already exist!'));
   });
 });

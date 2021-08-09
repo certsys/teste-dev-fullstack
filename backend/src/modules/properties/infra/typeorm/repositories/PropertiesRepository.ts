@@ -1,4 +1,5 @@
 import { ICreatePropertyDTO } from "@modules/properties/dtos/ICreatePropertyDTO";
+import { IFindParamsDTO } from "@modules/properties/dtos/IFindParamsDTO";
 import { IPropertiesRepository } from "@modules/properties/repositories/IPropertiesRepository";
 import { getRepository, Repository } from "typeorm";
 import { Property } from "../entities/Property";
@@ -57,8 +58,15 @@ class PropertiesRepository implements IPropertiesRepository {
     return property;
   }
 
-  public async find(): Promise<Property[]> {
-    return this.ormRepository.find();
+  public async find({ page, limit }: IFindParamsDTO): Promise<[properties: Property[], totalCount: number]> {
+    return await this.ormRepository.findAndCount({
+      order: {
+        created_at: 'DESC',
+        title: 'ASC'
+      },
+      take: limit,
+      skip: (page - 1) * limit
+    });
   }
   public async delete(id: string): Promise<boolean> {
     const deleted = await this.ormRepository.delete(id);
