@@ -26,8 +26,8 @@ describe('List Properties', () => {
       uf: 'FM',
     });
 
-    const properties = await listPropertiesUseCase.execute();
-
-    expect(properties).toEqual([property]);
+    const properties = await listPropertiesUseCase.execute({ page: 1, limit: 8 });
+    
+    expect(properties).toEqual([[property], 1]);
   });
 });
