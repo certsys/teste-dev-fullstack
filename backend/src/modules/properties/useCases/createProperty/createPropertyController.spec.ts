@@ -32,7 +32,7 @@ describe('Create Property Controller', () => {
       .send({
         email: 'admin@certimoveis.com.br',
         password: 'admin_test'
-      });     
+      });
 
     const { token } = responseToken.body;
 
@@ -44,16 +44,11 @@ describe('Create Property Controller', () => {
         value: 16156,
         area: 3464,
         address: 'Address Supertest',
-        public_place: 'Public Place Supertest',
         house_number: 6161,
-        complement: 'Fazenda',
-        district: 'Supertest',
-        cep: 8461036,
-        city: 'Supertest',
-        uf: 'SU'
+        cep: 59930000,
       }).set({
         Authorization: `Bearer ${token}`,
-      });  
+      });
 
     expect(response.status).toBe(201);
   });
@@ -79,7 +74,7 @@ describe('Create Property Controller', () => {
         house_number: 6161,
         complement: 'Fazenda',
         district: 'Supertest',
-        cep: 8461036,
+        cep: 59930000,
         city: 'Supertest',
         uf: 'SU'
       }).set({
