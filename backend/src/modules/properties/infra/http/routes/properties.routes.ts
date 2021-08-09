@@ -14,10 +14,10 @@ const showPropertyByIdController = new ShowPropertyByIdController();
 const updatePropertyController = new UpdatePropertyController();
 const deletePropertyByIdController = new DeletePropertyByIdController();
 
-propertiesRoutes.post('/', ensureAuthenticated, createPropertyController.handle);
-propertiesRoutes.get('/', ensureAuthenticated, listPropertyController.handle);
-propertiesRoutes.get('/:id', ensureAuthenticated, showPropertyByIdController.handle);
-propertiesRoutes.put('/:id', ensureAuthenticated, updatePropertyController.handle);
-propertiesRoutes.delete('/:id', ensureAuthenticated, deletePropertyByIdController.handle);
+propertiesRoutes.post('/', createPropertyController.handle);
+propertiesRoutes.get('/', listPropertyController.handle);
+propertiesRoutes.get('/:id', showPropertyByIdController.handle);
+propertiesRoutes.put('/:id', updatePropertyController.handle);
+propertiesRoutes.delete('/:id', deletePropertyByIdController.handle);
 
 export { propertiesRoutes }
